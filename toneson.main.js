@@ -43,7 +43,6 @@ var keyMap = [];
 var singleNoteDefGain = .17;
 var chordNoteDefGain = .11;
 
-
 var keys = [];
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -147,4 +146,23 @@ function play(){
 	};
 
 	log.text(logMessage);
+}
+
+function setKeyOfChords(){
+
+	switch(arguments[0]){
+		case 'A minor':
+			keyMap[89] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
+			keyMap[88] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
+			keyMap[67] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+			keyMap[86] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
+			keyMap[66] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+			keyMap[78] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
+			keyMap[77] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+			break;
+		
+		case 'Wagulu zagulue':
+			// ....
+			break;
+	}
 }
