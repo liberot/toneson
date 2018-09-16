@@ -74,7 +74,7 @@ for (var i = 0; i < 3; i++){
 
 
 jQuery(document.body).keydown(function(e){
-	console.log(e.keyCode);
+	// console.log(e.keyCode);
 	if(-1 == keys.indexOf(e.keyCode)){
     	keys.push(e.keyCode);
     	touch();
