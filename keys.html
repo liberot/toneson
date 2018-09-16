@@ -34,7 +34,7 @@ var map = [];
 		map[85] = { name: 'F#/Gb', freq: 739.99 };
 	
 	map[74] = { name: 'G', freq: 783.99 };
-		map[73] = { name: ' G#/Ab', freq: 830.61 };
+		map[73] = { name: 'G#/Ab', freq: 830.61 };
 	
 	map[75] = { name: 'A', freq: 880.00 };
 	
@@ -78,23 +78,15 @@ function play(){
 		if(i >= max){ continue };
 		
 		var m = map[keys[i]];
-		console.log(keys[i]);
+		// console.log(keys[i]);
 
 		if(null == m){ continue; }
 		var t = parseInt(m.freq);		
 		console.log(m.name, m.freq);
 
-		l += m.name  +' '+m.freq +' | ';
+		l += m.name  +' '+m.freq +' ';
 	
 		osc[i].frequency.setValueAtTime(t, audioCtx.currentTime);
-		// osc[i].connect(audioCtx.destination);
-		
-		try {
-			// osc[i].start();
-		}
-		catch(exc){
-			// console.log(exc);
-		}
 	}
 
 	log.text(l);
