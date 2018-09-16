@@ -23,6 +23,8 @@ var map = [];
 	
 	map[75] = { name: 'A', freq: 880.00 };
 	
+var defGain = .17;
+
 var keys = [];
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -37,20 +39,23 @@ for (var i = 0; i < max; i++){
 	osc[i].gain = audioCtx.createGain();
 	osc[i].connect(osc[i].gain);
 	osc[i].gain.connect(audioCtx.destination);
-	osc[i].gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+	osc[i].gain.gain.setValueAtTime(0, audioCtx.currentTime);
 	osc[i].start();
 };
 
-$(document.body).keydown(function (evt) {
-	if(-1 == keys.indexOf(evt.keyCode)){
-    	keys.push(evt.keyCode);
+$(document.body).keydown(function(e){
+	if(-1 == keys.indexOf(e.keyCode)){
+    	keys.push(e.keyCode);
     	keyChanged();
 	}
 });
 
-$(document.body).keyup(function (evt) {
-    keys.splice(keys.indexOf(evt.keyCode), 1);
-   	keyChanged();
+$(document.body).keyup(function(e){
+    keys.splice(keys.indexOf(e.keyCode), 1);
+    for(var i = 0; i < max; i++){
+    	osc[i].gain.gain.setValueAtTime(0, audioCtx.currentTime);
+	}
+	keyChanged(); 
 });
 
 function keyChanged(){
@@ -74,9 +79,11 @@ function play(){
 		
 		var t = parseInt(m.freq); console.log(m.name, m.freq);
 
+		osc[i].frequency.setValueAtTime(t, audioCtx.currentTime);
+		osc[i].gain.gain.setValueAtTime(defGain, audioCtx.currentTime);
+
 		logMessage += m.name  +' ' +m.freq +' ';
 
-		osc[i].frequency.setValueAtTime(t, audioCtx.currentTime);
 	}
 
 	log.text(logMessage);
