@@ -1,4 +1,5 @@
-var log = $('#log');
+// https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
+var log = jQuery('#log');
 
 // http://pages.mtu.edu/~suits/notefreqs.html
 var map = [];
@@ -28,32 +29,32 @@ var defGain = .17;
 var keys = [];
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
-var audioCtx = new AudioContext();
+var audioNode = new AudioContext();
 
 var max = 3;
 var osc = [];
 for (var i = 0; i < max; i++){
-	osc.push(audioCtx.createOscillator());
+	osc.push(audioNode.createOscillator());
 	// osc[i].type = 'sine';
-	// osc[i].connect(audioCtx.destination);
-	osc[i].gain = audioCtx.createGain();
-	osc[i].connect(osc[i].gain);
-	osc[i].gain.connect(audioCtx.destination);
-	osc[i].gain.gain.setValueAtTime(0, audioCtx.currentTime);
+	// osc[i].connect(audioNode.destination);
+	osc[i].gainNode = audioNode.createGain();
+	osc[i].connect(osc[i].gainNode);
+	osc[i].gainNode.connect(audioNode.destination);
+	osc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
 	osc[i].start();
 };
 
-$(document.body).keydown(function(e){
+jQuery(document.body).keydown(function(e){
 	if(-1 == keys.indexOf(e.keyCode)){
     	keys.push(e.keyCode);
     	keyChanged();
 	}
 });
 
-$(document.body).keyup(function(e){
+jQuery(document.body).keyup(function(e){
     keys.splice(keys.indexOf(e.keyCode), 1);
     for(var i = 0; i < max; i++){
-    	osc[i].gain.gain.setValueAtTime(0, audioCtx.currentTime);
+    	osc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
 	}
 	keyChanged(); 
 });
@@ -79,8 +80,8 @@ function play(){
 		
 		var t = parseInt(m.freq); console.log(m.name, m.freq);
 
-		osc[i].frequency.setValueAtTime(t, audioCtx.currentTime);
-		osc[i].gain.gain.setValueAtTime(defGain, audioCtx.currentTime);
+		osc[i].frequency.setValueAtTime(t, audioNode.currentTime);
+		osc[i].gainNode.gain.setValueAtTime(defGain, audioNode.currentTime);
 
 		logMessage += m.name  +' ' +m.freq +' ';
 
