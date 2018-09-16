@@ -47,25 +47,30 @@ for (var i = 0; i < max; i++){
 jQuery(document.body).keydown(function(e){
 	if(-1 == keys.indexOf(e.keyCode)){
     	keys.push(e.keyCode);
-    	keyChanged();
+    	touch();
 	}
 });
 
 jQuery(document.body).keyup(function(e){
     keys.splice(keys.indexOf(e.keyCode), 1);
-    for(var i = 0; i < max; i++){
-    	osc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
-	}
-	keyChanged(); 
+    release(); 
 });
 
-function keyChanged(){
+function touch(){
    	play();
+};
+
+function release(){
+	for(var i = 0; i < max; i++){
+    	osc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
+	}
+	play();
 }
 
 function play(){
 	
 	var logMessage = '';
+	
 	for(var i in keys){
 		
 		if(i >= max){ 
@@ -84,8 +89,7 @@ function play(){
 		osc[i].gainNode.gain.setValueAtTime(defGain, audioNode.currentTime);
 
 		logMessage += m.name  +' ' +m.freq +' ';
-
-	}
+	};
 
 	log.text(logMessage);
 }
