@@ -64,7 +64,7 @@ for (var i = 0; i < maxSingleNoteLen; i++){
 
 // singleNoteOscs chords
 var chordOscs = [];
-var maxChordNoteLen = 3
+var maxChordNoteLen = 5;
 for (var i = 0; i < maxChordNoteLen; i++){
 	chordOscs.push(audioNode.createOscillator());
 	// singleNoteOscs[i].type = 'sine';
@@ -130,6 +130,9 @@ function play(){
 		}	
 		else if('chord' == m.type){
 			for(var i in m.notes){
+				if(i >= maxChordNoteLen){
+					continue;
+				}
 				var note = notes[m.notes[i]]; 
 				if(null == note){
 					continue;
@@ -138,6 +141,7 @@ function play(){
 				chordOscs[i].gainNode.gain.setValueAtTime(chordNoteDefGain, audioNode.currentTime);
 				logMessage += note.name +' ';	
 			};
+			console.log(m.name, m.notes);
 			logMessage = m.name +' ' +logMessage +' ';	
 		}	
 	};
