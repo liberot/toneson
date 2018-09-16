@@ -49,32 +49,30 @@ var keys = [];
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioNode = new AudioContext();
 
-// osc single keys
-var max = 3;
-var osc = [];
-for (var i = 0; i < max; i++){
-	osc.push(audioNode.createOscillator());
-	// osc[i].type = 'sine';
-	// osc[i].connect(audioNode.destination);
-	osc[i].gainNode = audioNode.createGain();
-	osc[i].connect(osc[i].gainNode);
-	osc[i].gainNode.connect(audioNode.destination);
-	osc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
-	osc[i].start();
+// oscs single keys
+var maxSingleNoteLen = 3;
+var singleNoteOscs = [];
+for (var i = 0; i < maxSingleNoteLen; i++){
+	singleNoteOscs.push(audioNode.createOscillator());
+	// singleNoteOscs[i].type = 'sine';
+	singleNoteOscs[i].gainNode = audioNode.createGain();
+	singleNoteOscs[i].connect(singleNoteOscs[i].gainNode);
+	singleNoteOscs[i].gainNode.connect(audioNode.destination);
+	singleNoteOscs[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
+	singleNoteOscs[i].start();
 };
 
-// osc chords
-var chordOsc = [];
-var chordMax = 3
-for (var i = 0; i < chordMax; i++){
-	chordOsc.push(audioNode.createOscillator());
-	// osc[i].type = 'sine';
-	// osc[i].connect(audioNode.destination);
-	chordOsc[i].gainNode = audioNode.createGain();
-	chordOsc[i].connect(chordOsc[i].gainNode);
-	chordOsc[i].gainNode.connect(audioNode.destination);
-	chordOsc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
-	chordOsc[i].start();
+// singleNoteOscs chords
+var chordOscs = [];
+var maxChordNoteLen = 3
+for (var i = 0; i < maxChordNoteLen; i++){
+	chordOscs.push(audioNode.createOscillator());
+	// singleNoteOscs[i].type = 'sine';
+	chordOscs[i].gainNode = audioNode.createGain();
+	chordOscs[i].connect(chordOscs[i].gainNode);
+	chordOscs[i].gainNode.connect(audioNode.destination);
+	chordOscs[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
+	chordOscs[i].start();
 };
 
 
@@ -96,11 +94,11 @@ function touch(){
 };
 
 function release(){
-	for(var i = 0; i < max; i++){
-    	osc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
+	for(var i = 0; i < maxSingleNoteLen; i++){
+    	singleNoteOscs[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
 	}
-	for(var i = 0; i < chordMax; i++){
-    	chordOsc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
+	for(var i = 0; i < maxChordNoteLen; i++){
+    	chordOscs[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
 	}
 	play();
 }
@@ -111,10 +109,6 @@ function play(){
 	
 	for(var i in keys){
 		
-		if(i >= max){ 
-			continue 
-		};
-		
 		var m = map[keys[i]];
 
 		if(null == m){ 
@@ -122,13 +116,16 @@ function play(){
 		}
 
 		if('single' == m.type){
+			if(i >= maxSingleNoteLen){ 
+				continue 
+			};
 			var note = notes[m.notes[0]]; 
 			if(null == note){
 				continue;
 			}
 			console.log(note.name, note.freq);
-			osc[i].frequency.setValueAtTime(note.freq, audioNode.currentTime);
-			osc[i].gainNode.gain.setValueAtTime(singleNoteDefGain, audioNode.currentTime);
+			singleNoteOscs[i].frequency.setValueAtTime(note.freq, audioNode.currentTime);
+			singleNoteOscs[i].gainNode.gain.setValueAtTime(singleNoteDefGain, audioNode.currentTime);
 			logMessage += note.name  +' ' +note.freq +' ';
 		}	
 		else if('chord' == m.type){
@@ -137,12 +134,11 @@ function play(){
 				if(null == note){
 					continue;
 				}
-				chordOsc[i].frequency.setValueAtTime(note.freq, audioNode.currentTime);
-				chordOsc[i].gainNode.gain.setValueAtTime(chordNoteDefGain, audioNode.currentTime);
+				chordOscs[i].frequency.setValueAtTime(note.freq, audioNode.currentTime);
+				chordOscs[i].gainNode.gain.setValueAtTime(chordNoteDefGain, audioNode.currentTime);
 				logMessage += note.name +' ';	
 			};
 			logMessage = m.name +' ' +logMessage +' ';	
-			
 		}	
 	};
 
