@@ -2,28 +2,42 @@
 var log = jQuery('#log');
 
 // http://pages.mtu.edu/~suits/notefreqs.html
+var notes = [];
+	notes['A'] = { name: 'A', freq: 440 };
+	notes['A#/Bb'] = { name: 'A#/Bb', freq: 466.16 };
+	notes['B'] = { name: 'B', freq: 493.88 };
+	notes['C'] = { name: 'C', freq: 523.25 };
+	notes['C#/Db'] = { name: 'C#/Db', freq: 554.37 };
+	notes['D'] = { name: 'D', freq: 587.33 };
+	notes['D#/Eb'] = { name: 'D#/Eb', freq: 622.25 };
+	notes['E'] = { name: 'E', freq: 659.25 };
+	notes['F'] = { name: 'F', freq: 698.46 };
+	notes['F#/Gb'] = { name: 'F#/Gb', freq: 739.99 };
+	notes['G'] = { name: 'G', freq: 783.99 };
+	notes['G#/Ab'] = { name: 'G#/Ab', freq: 830.61 };
+
 var map = [];
-	map[65] = { name: 'A', freq: 440 };
-		map[87] = { name: 'A#/Bb', freq: 466.16 };
-	
-	map[83] = { name: 'B', freq: 493.88 };
-	
-	map[68] = { name: 'C', freq: 523.25 };
-		map[82] = { name: 'C#/Db', freq: 554.37 };
-	
-	map[70] = { name: 'D', freq: 587.33 };
-		map[84] = { name: 'D#/Eb', freq: 622.25 };
-	
-	map[71] = { name: 'E', freq: 659.25 };
-	
-	map[72] = { name: 'F', freq: 698.46 };
-		map[85] = { name: 'F#/Gb', freq: 739.99 };
-	
-	map[74] = { name: 'G', freq: 783.99 };
-		map[73] = { name: 'G#/Ab', freq: 830.61 };
-	
-	map[75] = { name: 'A', freq: 880.00 };
-	
+	map[65] = { notes: ['A'], type: 'single' };
+		map[87] = { notes: ['B'], type: 'single' };
+	map[83] = { notes: ['C'], type: 'single' };
+	map[68] = { notes: ['D'], type: 'single' };
+		map[82] = { notes: ['C#/Db'], freq: 554.37, type: 'single' };
+	map[70] = { notes: ['D'], type: 'single' };
+		map[84] = { notes: ['D#/Eb'], type: 'single' };
+	map[71] = { notes: ['E'], type: 'single' };
+	map[72] = { notes: ['F'], type: 'single' };
+		map[85] = { notes: ['F#/Gb'], type: 'single' };
+	map[74] = { notes: ['G'], type: 'single' };
+		map[73] = { notes: ['G#/Ab'], type: 'single' };
+
+	map[89] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
+	map[88] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
+	map[67] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+	map[86] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
+	map[66] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+	map[78] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
+	map[77] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+
 var defGain = .17;
 
 var keys = [];
@@ -31,6 +45,7 @@ var keys = [];
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioNode = new AudioContext();
 
+// osc single keys
 var max = 3;
 var osc = [];
 for (var i = 0; i < max; i++){
@@ -44,7 +59,22 @@ for (var i = 0; i < max; i++){
 	osc[i].start();
 };
 
+// osc chords
+var chordOsc = [];
+for (var i = 0; i < 3; i++){
+	chordOsc.push(audioNode.createOscillator());
+	// osc[i].type = 'sine';
+	// osc[i].connect(audioNode.destination);
+	chordOsc[i].gainNode = audioNode.createGain();
+	chordOsc[i].connect(chordOsc[i].gainNode);
+	chordOsc[i].gainNode.connect(audioNode.destination);
+	chordOsc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
+	chordOsc[i].start();
+};
+
+
 jQuery(document.body).keydown(function(e){
+	console.log(e.keyCode);
 	if(-1 == keys.indexOf(e.keyCode)){
     	keys.push(e.keyCode);
     	touch();
@@ -64,6 +94,9 @@ function release(){
 	for(var i = 0; i < max; i++){
     	osc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
 	}
+	for(var i = 0; i < 3; i++){
+    	chordOsc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
+	}
 	play();
 }
 
@@ -78,17 +111,34 @@ function play(){
 		};
 		
 		var m = map[keys[i]];
-		
+
 		if(null == m){ 
 			continue; 
 		}
-		
-		var t = parseInt(m.freq); console.log(m.name, m.freq);
 
-		osc[i].frequency.setValueAtTime(t, audioNode.currentTime);
-		osc[i].gainNode.gain.setValueAtTime(defGain, audioNode.currentTime);
-
-		logMessage += m.name  +' ' +m.freq +' ';
+		if('single' == m.type){
+			var note = notes[m.notes[0]]; 
+			if(null == note){
+				continue;
+			}
+			console.log(note.name, note.freq);
+			osc[i].frequency.setValueAtTime(note.freq, audioNode.currentTime);
+			osc[i].gainNode.gain.setValueAtTime(defGain, audioNode.currentTime);
+			logMessage += note.name  +' ' +note.freq +' ';
+		}	
+		else if('chord' == m.type){
+			for(var i in m.notes){
+				var note = notes[m.notes[i]]; 
+				if(null == note){
+					continue;
+				}
+				chordOsc[i].frequency.setValueAtTime(note.freq, audioNode.currentTime);
+				chordOsc[i].gainNode.gain.setValueAtTime(defGain, audioNode.currentTime);
+				logMessage += note.name +' ';	
+			};
+			logMessage = m.name +' ' +logMessage +' ';	
+			
+		}	
 	};
 
 	log.text(logMessage);
