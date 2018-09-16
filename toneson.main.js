@@ -16,28 +16,28 @@ var notes = [];
 	notes['G'] = { name: 'G', freq: 783.99 };
 	notes['G#/Ab'] = { name: 'G#/Ab', freq: 830.61 };
 
-var map = [];
-	map[65] = { notes: ['A'], type: 'single' };
-		map[87] = { notes: ['B'], type: 'single' };
-	map[83] = { notes: ['C'], type: 'single' };
-	map[68] = { notes: ['D'], type: 'single' };
-		map[82] = { notes: ['C#/Db'], freq: 554.37, type: 'single' };
-	map[70] = { notes: ['D'], type: 'single' };
-		map[84] = { notes: ['D#/Eb'], type: 'single' };
-	map[71] = { notes: ['E'], type: 'single' };
-	map[72] = { notes: ['F'], type: 'single' };
-		map[85] = { notes: ['F#/Gb'], type: 'single' };
-	map[74] = { notes: ['G'], type: 'single' };
-		map[73] = { notes: ['G#/Ab'], type: 'single' };
+var keyMap = [];
+	keyMap[65] = { notes: ['A'], type: 'single' };
+		keyMap[87] = { notes: ['B'], type: 'single' };
+	keyMap[83] = { notes: ['C'], type: 'single' };
+	keyMap[68] = { notes: ['D'], type: 'single' };
+		keyMap[82] = { notes: ['C#/Db'], type: 'single' };
+	keyMap[70] = { notes: ['D'], type: 'single' };
+		keyMap[84] = { notes: ['D#/Eb'], type: 'single' };
+	keyMap[71] = { notes: ['E'], type: 'single' };
+	keyMap[72] = { notes: ['F'], type: 'single' };
+		keyMap[85] = { notes: ['F#/Gb'], type: 'single' };
+	keyMap[74] = { notes: ['G'], type: 'single' };
+		keyMap[73] = { notes: ['G#/Ab'], type: 'single' };
 
 	// A minor - to do: shift diss block to other scales by some key 
-	map[89] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
-	map[88] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
-	map[67] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
-	map[86] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
-	map[66] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
-	map[78] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
-	map[77] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+	keyMap[89] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
+	keyMap[88] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
+	keyMap[67] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+	keyMap[86] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
+	keyMap[66] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+	keyMap[78] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
+	keyMap[77] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
 	// -----
 
 var singleNoteDefGain = .17;
@@ -109,7 +109,7 @@ function play(){
 	
 	for(var i in keys){
 		
-		var m = map[keys[i]];
+		var m = keyMap[keys[i]];
 
 		if(null == m){ 
 			continue; 
