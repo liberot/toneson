@@ -30,15 +30,8 @@ var keyMap = [];
 	keyMap[74] = { notes: ['G'], type: 'single' };
 		keyMap[73] = { notes: ['G#/Ab'], type: 'single' };
 
-	// A minor - to do: shift diss block to other scales by some key 
-	keyMap[89] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
-	keyMap[88] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
-	keyMap[67] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
-	keyMap[86] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
-	keyMap[66] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
-	keyMap[78] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
-	keyMap[77] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
-	// -----
+setKeyOfChords('A minor');
+// ... 
 
 var singleNoteDefGain = .17;
 var chordNoteDefGain = .11;
