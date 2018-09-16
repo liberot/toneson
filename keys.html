@@ -42,8 +42,12 @@ var keys = [];
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
+/*
 var gain = audioCtx.createGain();
-	gain.gain.setValueAtTime(1, audioCtx.currentTime);
+	gain.connect(audioCtx.destination);
+	gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+	// gain.gain.value = 0.35;
+*/
 
 var max = 3;
 
@@ -51,7 +55,12 @@ var osc = [];
 for (var i = 0; i < max; i++){
 	osc.push(audioCtx.createOscillator());
 	// osc[i].type = 'sine';
-	osc[i].connect(audioCtx.destination);
+	// osc[i].connect(audioCtx.destination);
+	osc[i].gain = audioCtx.createGain();
+	osc[i].connect(osc[i].gain);
+	osc[i].gain.connect(audioCtx.destination);
+	osc[i].gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+
 	osc[i].start();
 };
 
@@ -75,17 +84,22 @@ function play(){
 	
 	var l = '';
 	for(var i in keys){
-		if(i >= max){ continue };
+		
+		if(i >= max){ 
+			continue 
+		};
 		
 		var m = map[keys[i]];
-		// console.log(keys[i]);
-
-		if(null == m){ continue; }
+		
+		if(null == m){ 
+			continue; 
+		}
+		
 		var t = parseInt(m.freq);		
-		console.log(m.name, m.freq);
+console.log(m.name, m.freq);
 
-		l += m.name  +' '+m.freq +' ';
-	
+		l += m.name  +' ' +m.freq +' ';
+
 		osc[i].frequency.setValueAtTime(t, audioCtx.currentTime);
 	}
 
