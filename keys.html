@@ -15,24 +15,35 @@
 
 var log = $('#log');
 
+// http://pages.mtu.edu/~suits/notefreqs.html
 var map = [];
 	map[65] = { name: 'A', freq: 440 };
 		map[87] = { name: 'A#/Bb', freq: 466.16 };
+	
 	map[83] = { name: 'B', freq: 493.88 };
+	
 	map[68] = { name: 'C', freq: 523.25 };
-		map[69] = { name: 'C#/Db', freq: 554.37 };
-	map[69] = { name: 'D', freq: 587.33 };
-	map[70] = { name: 'E', freq: 659.25 };
-	map[71] = { name: 'F', freq: 698.46 };
-	map[72] = { name: 'G', freq: 783.99 };
-	map[74] = { name: 'A', freq: 880.00 };
-
+		map[82] = { name: 'C#/Db', freq: 554.37 };
+	
+	map[70] = { name: 'D', freq: 587.33 };
+		map[84] = { name: 'D#/Eb', freq: 622.25 };
+	
+	map[71] = { name: 'E', freq: 659.25 };
+	
+	map[72] = { name: 'F', freq: 698.46 };
+		map[85] = { name: 'F#/Gb', freq: 739.99 };
+	
+	map[74] = { name: 'G', freq: 783.99 };
+		map[73] = { name: ' G#/Ab', freq: 830.61 };
+	
+	map[75] = { name: 'A', freq: 880.00 };
+	
 var keys = [];
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
 var gain = audioCtx.createGain();
-	gain.gain.setValueAtTime(1, audioCtx.currentTime)
+	gain.gain.setValueAtTime(1, audioCtx.currentTime);
 
 var max = 3;
 
@@ -40,6 +51,8 @@ var osc = [];
 for (var i = 0; i < max; i++){
 	osc.push(audioCtx.createOscillator());
 	// osc[i].type = 'sine';
+	osc[i].connect(audioCtx.destination);
+	osc[i].start();
 };
 
 $(document.body).keydown(function (evt) {
@@ -72,11 +85,12 @@ function play(){
 		console.log(m.name, m.freq);
 
 		l += m.name  +' '+m.freq +' | ';
-
+	
 		osc[i].frequency.setValueAtTime(t, audioCtx.currentTime);
-		osc[i].connect(audioCtx.destination);
+		// osc[i].connect(audioCtx.destination);
+		
 		try {
-			osc[i].start();
+			// osc[i].start();
 		}
 		catch(exc){
 			// console.log(exc);
