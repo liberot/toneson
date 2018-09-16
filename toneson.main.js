@@ -30,6 +30,7 @@ var map = [];
 	map[74] = { notes: ['G'], type: 'single' };
 		map[73] = { notes: ['G#/Ab'], type: 'single' };
 
+	// A minor - to do: shift diss block to other scales by some key 
 	map[89] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
 	map[88] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
 	map[67] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
@@ -37,6 +38,7 @@ var map = [];
 	map[66] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
 	map[78] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
 	map[77] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+	// -----
 
 var defGain = .17;
 
