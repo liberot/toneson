@@ -40,7 +40,9 @@ var map = [];
 	map[77] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
 	// -----
 
-var defGain = .17;
+var singleNoteDefGain = .17;
+var chordNoteDefGain = .11;
+
 
 var keys = [];
 
@@ -63,7 +65,8 @@ for (var i = 0; i < max; i++){
 
 // osc chords
 var chordOsc = [];
-for (var i = 0; i < 3; i++){
+var chordMax = 3
+for (var i = 0; i < chordMax; i++){
 	chordOsc.push(audioNode.createOscillator());
 	// osc[i].type = 'sine';
 	// osc[i].connect(audioNode.destination);
@@ -96,7 +99,7 @@ function release(){
 	for(var i = 0; i < max; i++){
     	osc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
 	}
-	for(var i = 0; i < 3; i++){
+	for(var i = 0; i < chordMax; i++){
     	chordOsc[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
 	}
 	play();
@@ -125,7 +128,7 @@ function play(){
 			}
 			console.log(note.name, note.freq);
 			osc[i].frequency.setValueAtTime(note.freq, audioNode.currentTime);
-			osc[i].gainNode.gain.setValueAtTime(defGain, audioNode.currentTime);
+			osc[i].gainNode.gain.setValueAtTime(singleNoteDefGain, audioNode.currentTime);
 			logMessage += note.name  +' ' +note.freq +' ';
 		}	
 		else if('chord' == m.type){
@@ -135,7 +138,7 @@ function play(){
 					continue;
 				}
 				chordOsc[i].frequency.setValueAtTime(note.freq, audioNode.currentTime);
-				chordOsc[i].gainNode.gain.setValueAtTime(defGain, audioNode.currentTime);
+				chordOsc[i].gainNode.gain.setValueAtTime(chordNoteDefGain, audioNode.currentTime);
 				logMessage += note.name +' ';	
 			};
 			logMessage = m.name +' ' +logMessage +' ';	
