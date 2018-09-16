@@ -5,6 +5,17 @@
 
 <script type="text/javascript" src="./jquery.min.js"></script>
 
+<style type="text/css">
+
+#log {
+	font-size: 2em;
+	font-family: Georgia;
+	background-color: #e6ffb3;
+	height: 3em;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -42,15 +53,8 @@ var keys = [];
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
-/*
-var gain = audioCtx.createGain();
-	gain.connect(audioCtx.destination);
-	gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
-	// gain.gain.value = 0.35;
-*/
 
 var max = 3;
-
 var osc = [];
 for (var i = 0; i < max; i++){
 	osc.push(audioCtx.createOscillator());
@@ -59,8 +63,7 @@ for (var i = 0; i < max; i++){
 	osc[i].gain = audioCtx.createGain();
 	osc[i].connect(osc[i].gain);
 	osc[i].gain.connect(audioCtx.destination);
-	osc[i].gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
-
+	osc[i].gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
 	osc[i].start();
 };
 
@@ -82,7 +85,7 @@ function keyChanged(){
 
 function play(){
 	
-	var l = '';
+	var logMessage = '';
 	for(var i in keys){
 		
 		if(i >= max){ 
@@ -95,15 +98,14 @@ function play(){
 			continue; 
 		}
 		
-		var t = parseInt(m.freq);		
-console.log(m.name, m.freq);
+		var t = parseInt(m.freq); console.log(m.name, m.freq);
 
-		l += m.name  +' ' +m.freq +' ';
+		logMessage += m.name  +' ' +m.freq +' ';
 
 		osc[i].frequency.setValueAtTime(t, audioCtx.currentTime);
 	}
 
-	log.text(l);
+	log.text(logMessage);
 }
 
 
