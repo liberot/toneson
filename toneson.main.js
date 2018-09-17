@@ -134,20 +134,20 @@ for (var i = 0; i < maxChordNoteLen; i++){
 
 jQuery(document.body).keydown(function(e){
 	// console.log(e.keyCode);
+	// special modifier key
+	if(Q == e.keyCode){
+		shiftKey();
+		// return;
+	}
 	if(-1 == pressedKeyboardKeys.indexOf(e.keyCode)){
     	pressedKeyboardKeys.push(e.keyCode);
-    	// special modifier key
-    	if(Q == e.keyCode){
-    		shiftKey();
-    		return;
-    	}
-    	touch();
+	    touch();
 	}
 });
 
 jQuery(document.body).keyup(function(e){
     pressedKeyboardKeys.splice(pressedKeyboardKeys.indexOf(e.keyCode), 1);
-    release(); 
+	release(); 
 });
 
 function shiftKey(){
