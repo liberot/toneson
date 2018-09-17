@@ -27,9 +27,9 @@ var notes = [];
 
 var keyMap = [];
 	keyMap[65] = { notes: ['A'], type: 'single' };
-		keyMap[87] = { notes: ['B'], type: 'single' };
-	keyMap[83] = { notes: ['C'], type: 'single' };
-	keyMap[68] = { notes: ['D'], type: 'single' };
+		keyMap[87] = { notes: ['A#/Bb'], type: 'single' };
+	keyMap[83] = { notes: ['B'], type: 'single' };
+	keyMap[68] = { notes: ['C'], type: 'single' };
 		keyMap[82] = { notes: ['C#/Db'], type: 'single' };
 	keyMap[70] = { notes: ['D'], type: 'single' };
 		keyMap[84] = { notes: ['D#/Eb'], type: 'single' };
@@ -38,7 +38,8 @@ var keyMap = [];
 		keyMap[85] = { notes: ['F#/Gb'], type: 'single' };
 	keyMap[74] = { notes: ['G'], type: 'single' };
 		keyMap[73] = { notes: ['G#/Ab'], type: 'single' };
-
+	keyMap[75] = { notes: ['A'], type: 'single' };
+	
 setKeyOfChords(keys[currentKeyIndex]);
 
 var singleNoteDefGain = .17;
