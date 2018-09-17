@@ -4,6 +4,14 @@
 	background-color: #e6ffb3;
 	height: 3em;
 }
+
+#keyLog {
+	font-size: .75em;
+	font-family: Georgia;
+	font-style: italic;
+	padding-bottom: 1em;
+}
+
 #idx {
 	font-size: .75em;
 	font-family: Arial;

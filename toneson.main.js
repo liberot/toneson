@@ -1,5 +1,6 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
 var log = jQuery('#log');
+var keyLog = jQuery('#keyLog')
 
 var keys = [
 	'A minor',
@@ -75,7 +76,7 @@ for (var i = 0; i < maxChordNoteLen; i++){
 
 
 jQuery(document.body).keydown(function(e){
-	console.log(e.keyCode);
+	// console.log(e.keyCode);
 	if(-1 == pressedKeyboardKeys.indexOf(e.keyCode)){
     	pressedKeyboardKeys.push(e.keyCode);
     	// special modifier key
@@ -162,8 +163,6 @@ function play(){
 
 function setKeyOfChords(){
 
-	console.log(arguments[0]);
-	
 	switch(arguments[0]){
 		
 		case 'A minor':
@@ -186,6 +185,9 @@ function setKeyOfChords(){
 			keyMap[77] = { name: 'A major', notes: ['A', 'C#/Db', 'E'], type: 'chord'};
 			break;
 	}
+
+	console.log(arguments[0]);
+	keyLog.text(arguments[0]);
 }
 
 
