@@ -9,6 +9,28 @@ var keys = [
 	'B major'
 ];
 
+var A = 65,
+	S = 83,
+	D = 68,
+	F = 70,
+	G = 71,
+	H = 72,
+	J = 74,
+	K = 75,
+	W = 87,
+	R = 82,
+	T = 84,
+	U = 85,
+	I = 73,
+	Y = 89,
+	X = 88,
+	C = 67,
+	V = 86,
+	B = 66,
+	N = 78,
+	M = 77,
+	Q = 81; 
+
 var currentKeyIndex = 0;
 
 // http://pages.mtu.edu/~suits/notefreqs.html
@@ -44,19 +66,19 @@ var notes = [];
 	notes['Ab'] = { name: 'Ab', freq: 830.61 };
 
 var keyMap = [];
-	keyMap[65] = { notes: ['A'], type: 'single' };
-		keyMap[87] = { notes: ['A#/Bb'], type: 'single' };
-	keyMap[83] = { notes: ['B'], type: 'single' };
-	keyMap[68] = { notes: ['C'], type: 'single' };
-		keyMap[82] = { notes: ['C#/Db'], type: 'single' };
-	keyMap[70] = { notes: ['D'], type: 'single' };
-		keyMap[84] = { notes: ['D#/Eb'], type: 'single' };
-	keyMap[71] = { notes: ['E'], type: 'single' };
-	keyMap[72] = { notes: ['F'], type: 'single' };
-		keyMap[85] = { notes: ['F#/Gb'], type: 'single' };
-	keyMap[74] = { notes: ['G'], type: 'single' };
-		keyMap[73] = { notes: ['G#/Ab'], type: 'single' };
-	keyMap[75] = { notes: ['A'], type: 'single' };
+	keyMap[A] = { notes: ['A'], type: 'single' };
+		keyMap[W] = { notes: ['A#/Bb'], type: 'single' };
+	keyMap[S] = { notes: ['B'], type: 'single' };
+	keyMap[D] = { notes: ['C'], type: 'single' };
+		keyMap[R] = { notes: ['C#/Db'], type: 'single' };
+	keyMap[F] = { notes: ['D'], type: 'single' };
+		keyMap[T] = { notes: ['D#/Eb'], type: 'single' };
+	keyMap[G] = { notes: ['E'], type: 'single' };
+	keyMap[H] = { notes: ['F'], type: 'single' };
+		keyMap[U] = { notes: ['F#/Gb'], type: 'single' };
+	keyMap[J] = { notes: ['G'], type: 'single' };
+		keyMap[I] = { notes: ['G#/Ab'], type: 'single' };
+	keyMap[K] = { notes: ['A'], type: 'single' };
 	
 setKeyOfChords(keys[currentKeyIndex]);
 
@@ -99,7 +121,7 @@ jQuery(document.body).keydown(function(e){
 	if(-1 == pressedKeyboardKeys.indexOf(e.keyCode)){
     	pressedKeyboardKeys.push(e.keyCode);
     	// special modifier key
-    	if(81 == e.keyCode){
+    	if(Q == e.keyCode){
     		shiftKey();
     		return;
     	}
@@ -185,43 +207,43 @@ function setKeyOfChords(){
 	switch(arguments[0]){
 		
 		case 'A minor':
-			keyMap[89] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
-			keyMap[88] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
-			keyMap[67] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
-			keyMap[86] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
-			keyMap[66] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
-			keyMap[78] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
-			keyMap[77] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+			keyMap[Y] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
+			keyMap[X] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
+			keyMap[C] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+			keyMap[V] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
+			keyMap[B] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+			keyMap[N] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
+			keyMap[M] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
 			break;
 
 		case 'A major':
-			keyMap[89] = { name: 'A major', notes: ['A', 'C#', 'E'], type: 'chord'};
-			keyMap[88] = { name: 'B minor', notes: ['B', 'D', 'F#'], type: 'chord'};
-			keyMap[67] = { name: 'C#/Db minor', notes: ['C#', 'E', 'G#'], type: 'chord'};
-			keyMap[86] = { name: 'D major', notes: ['D', 'F#', 'A'], type: 'chord'};
-			keyMap[66] = { name: 'E major', notes: ['E', 'G#', 'B'], type: 'chord'};
-			keyMap[78] = { name: 'F#/Gb minor', notes: ['F#', 'A', 'C#'], type: 'chord'};
-			keyMap[77] = { name: 'G diminished', notes: ['G#', 'B', 'D'], type: 'chord'};
+			keyMap[Y] = { name: 'A major', notes: ['A', 'C#', 'E'], type: 'chord'};
+			keyMap[X] = { name: 'B minor', notes: ['B', 'D', 'F#'], type: 'chord'};
+			keyMap[C] = { name: 'C#/Db minor', notes: ['C#', 'E', 'G#'], type: 'chord'};
+			keyMap[V] = { name: 'D major', notes: ['D', 'F#', 'A'], type: 'chord'};
+			keyMap[B] = { name: 'E major', notes: ['E', 'G#', 'B'], type: 'chord'};
+			keyMap[N] = { name: 'F#/Gb minor', notes: ['F#', 'A', 'C#'], type: 'chord'};
+			keyMap[M] = { name: 'G diminished', notes: ['G#', 'B', 'D'], type: 'chord'};
 			break;
 
 		case 'B minor':
-			keyMap[89] = { name: 'B minor', notes: ['B', 'D', 'F#'], type: 'chord'};
-			keyMap[88] = { name: 'C diminished', notes: ['C#', 'E', 'G'], type: 'chord'};
-			keyMap[67] = { name: 'D major', notes: ['D', 'F#', 'A'], type: 'chord'};
-			keyMap[86] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
-			keyMap[66] = { name: 'F#/Gb minor', notes: ['F#', 'A', 'C#'], type: 'chord'};
-			keyMap[78] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
-			keyMap[77] = { name: 'A major', notes: ['A', 'C#', 'E'], type: 'chord'};
+			keyMap[Y] = { name: 'B minor', notes: ['B', 'D', 'F#'], type: 'chord'};
+			keyMap[X] = { name: 'C diminished', notes: ['C#', 'E', 'G'], type: 'chord'};
+			keyMap[C] = { name: 'D major', notes: ['D', 'F#', 'A'], type: 'chord'};
+			keyMap[V] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+			keyMap[B] = { name: 'F#/Gb minor', notes: ['F#', 'A', 'C#'], type: 'chord'};
+			keyMap[N] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+			keyMap[M] = { name: 'A major', notes: ['A', 'C#', 'E'], type: 'chord'};
 			break;
 
 		case 'B major':
-			keyMap[89] = { name: 'B major', notes: ['B', 'D#', 'F#'], type: 'chord'};
-			keyMap[88] = { name: 'C minor', notes: ['C#', 'E', 'G#'], type: 'chord'};
-			keyMap[67] = { name: 'D# minor', notes: ['D#', 'F#', 'A#'], type: 'chord'};
-			keyMap[86] = { name: 'E major', notes: ['E', 'G#', 'B'], type: 'chord'};
-			keyMap[66] = { name: 'F# major', notes: ['F#', 'A#', 'C#'], type: 'chord'};
-			keyMap[78] = { name: 'G# minor', notes: ['G#', 'B', 'D#'], type: 'chord'};
-			keyMap[77] = { name: 'A# diminished', notes: ['A#', 'C#', 'E'], type: 'chord'};
+			keyMap[Y] = { name: 'B major', notes: ['B', 'D#', 'F#'], type: 'chord'};
+			keyMap[X] = { name: 'C minor', notes: ['C#', 'E', 'G#'], type: 'chord'};
+			keyMap[C] = { name: 'D# minor', notes: ['D#', 'F#', 'A#'], type: 'chord'};
+			keyMap[V] = { name: 'E major', notes: ['E', 'G#', 'B'], type: 'chord'};
+			keyMap[B] = { name: 'F# major', notes: ['F#', 'A#', 'C#'], type: 'chord'};
+			keyMap[N] = { name: 'G# minor', notes: ['G#', 'B', 'D#'], type: 'chord'};
+			keyMap[M] = { name: 'A# diminished', notes: ['A#', 'C#', 'E'], type: 'chord'};
 			break;
 	
 	}
