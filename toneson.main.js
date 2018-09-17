@@ -4,6 +4,7 @@ var keyLog = jQuery('#keyLog')
 
 var keys = [
 	'A minor',
+	'A major',
 	'B minor'
 ];
 
@@ -174,7 +175,17 @@ function setKeyOfChords(){
 			keyMap[78] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
 			keyMap[77] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
 			break;
-		
+
+		case 'A major':
+			keyMap[89] = { name: 'A major', notes: ['A', 'C#/Db', 'E'], type: 'chord'};
+			keyMap[88] = { name: 'B minor', notes: ['B', 'D', 'F#/Gb'], type: 'chord'};
+			keyMap[67] = { name: 'C#/Db minor', notes: ['C#/Db', 'E', 'G#/Ab'], type: 'chord'};
+			keyMap[86] = { name: 'D major', notes: ['D', 'F#/Gb', 'A'], type: 'chord'};
+			keyMap[66] = { name: 'E major', notes: ['E', 'G#/Ab', 'B'], type: 'chord'};
+			keyMap[78] = { name: 'F#/Gb minor', notes: ['F#/Gb', 'A', 'C#/Db'], type: 'chord'};
+			keyMap[77] = { name: 'G diminished', notes: ['G#/Ab', 'B', 'D'], type: 'chord'};
+			break;
+
 		case 'B minor':
 			keyMap[89] = { name: 'B minor', notes: ['B', 'D', 'F#/Gb'], type: 'chord'};
 			keyMap[88] = { name: 'C diminished', notes: ['C#/Db', 'E', 'G'], type: 'chord'};
