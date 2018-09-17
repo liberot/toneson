@@ -5,7 +5,8 @@ var keyLog = jQuery('#keyLog')
 var keys = [
 	'A minor',
 	'A major',
-	'B minor'
+	'B minor',
+	'B major'
 ];
 
 var currentKeyIndex = 0;
@@ -92,7 +93,6 @@ for (var i = 0; i < maxChordNoteLen; i++){
 	chordOscs[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
 	chordOscs[i].start();
 };
-
 
 jQuery(document.body).keydown(function(e){
 	// console.log(e.keyCode);
@@ -213,6 +213,17 @@ function setKeyOfChords(){
 			keyMap[78] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
 			keyMap[77] = { name: 'A major', notes: ['A', 'C#', 'E'], type: 'chord'};
 			break;
+
+		case 'B major':
+			keyMap[89] = { name: 'B major', notes: ['B', 'D#', 'F#'], type: 'chord'};
+			keyMap[88] = { name: 'C minor', notes: ['C#', 'E', 'G#'], type: 'chord'};
+			keyMap[67] = { name: 'D# minor', notes: ['D#', 'F#', 'A#'], type: 'chord'};
+			keyMap[86] = { name: 'E major', notes: ['E', 'G#', 'B'], type: 'chord'};
+			keyMap[66] = { name: 'F# major', notes: ['F#', 'A#', 'C#'], type: 'chord'};
+			keyMap[78] = { name: 'G# minor', notes: ['G#', 'B', 'D#'], type: 'chord'};
+			keyMap[77] = { name: 'A# diminished', notes: ['A#', 'C#', 'E'], type: 'chord'};
+			break;
+	
 	}
 
 	console.log(arguments[0]);
