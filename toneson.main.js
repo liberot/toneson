@@ -9,6 +9,8 @@ var keys = [
 	'B major'
 ];
 
+var currentKeyIndex = 0;
+
 var A = 65,
 	S = 83,
 	D = 68,
@@ -30,8 +32,6 @@ var A = 65,
 	N = 78,
 	M = 77,
 	Q = 81; 
-
-var currentKeyIndex = 0;
 
 // http://pages.mtu.edu/~suits/notefreqs.html
 var notes = [];
@@ -109,6 +109,9 @@ var maxChordNoteLen = 5;
 for (var i = 0; i < maxChordNoteLen; i++){
 	chordOscs.push(audioNode.createOscillator());
 	// singleNoteOscs[i].type = 'sine';
+	var rnd = parseInt(Math.random() *13) -7;
+	console.log('detune: ', rnd);
+	chordOscs[i].detune.value = rnd;
 	chordOscs[i].gainNode = audioNode.createGain();
 	chordOscs[i].connect(chordOscs[i].gainNode);
 	chordOscs[i].gainNode.connect(audioNode.destination);
