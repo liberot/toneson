@@ -10,7 +10,9 @@ var keys = [
 	'C minor',
 	'C major',
 	'D minor',
-	'D major'
+	'D major',
+	'E minor',
+	'E major'
 ];
 
 var currentKeyIndex = 0;
@@ -212,6 +214,7 @@ function play(){
 function setKeyOfChords(){
 
 	// todo: einmal den kopf drumherum....
+	// http://www.piano-keyboard-guide.com/key-of-e-minor.html
 	switch(arguments[0]){
 		
 		case 'A minor':
@@ -292,6 +295,25 @@ function setKeyOfChords(){
 			keyMap[B] = { name: 'A major', notes: ['A', 'C#', 'E'], type: 'chord'};
 			keyMap[N] = { name: 'B minor', notes: ['B', 'D', 'F#'], type: 'chord'};
 			keyMap[M] = { name: 'C# diminished', notes: ['C#', 'E', 'G'], type: 'chord'};
+			break;
+		
+		case 'E minor':
+			keyMap[Y] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+			keyMap[X] = { name: 'F diminished', notes: ['F#', 'A', 'C'], type: 'chord'};
+			keyMap[C] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+			keyMap[V] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
+			keyMap[B] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+			keyMap[N] = { name: 'D major', notes: ['D', 'F#', 'A'], type: 'chord'};
+			break;
+		
+		case 'E major':
+			keyMap[Y] = { name: 'E major', notes: ['E', 'G#', 'B'], type: 'chord'};
+			keyMap[X] = { name: 'F# minor', notes: ['F#', 'A', 'C#'], type: 'chord'};
+			keyMap[C] = { name: 'G# minor', notes: ['G#', 'B', 'D#'], type: 'chord'};
+			keyMap[V] = { name: 'A major', notes: ['A', 'C#', 'E'], type: 'chord'};
+			keyMap[B] = { name: 'B major', notes: ['B', 'D#', 'F#'], type: 'chord'};
+			keyMap[N] = { name: 'C minor', notes: ['C#', 'E', 'G#'], type: 'chord'};
+			keyMap[M] = { name: 'D# diminished', notes: ['D#', 'F#', 'A'], type: 'chord'};
 			break;
 		
 
