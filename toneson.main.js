@@ -7,7 +7,8 @@ var keys = [
 	'A major',
 	'B minor',
 	'B major',
-	'C minor'
+	'C minor',
+	'C major'
 ];
 
 var currentKeyIndex = 0;
@@ -261,6 +262,17 @@ function setKeyOfChords(){
 			keyMap[M] = { name: 'Bb major', notes: ['Bb', 'D', 'F'], type: 'chord'};
 			break;
 	
+		case 'C major':
+			keyMap[Y] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+			keyMap[X] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
+			keyMap[C] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+			keyMap[V] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
+			keyMap[B] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+			keyMap[N] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
+			keyMap[M] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
+			break;
+	
+
 	}
 
 	console.log(arguments[0]);
