@@ -12,7 +12,9 @@ var keys = [
 	'D minor',
 	'D major',
 	'E minor',
-	'E major'
+	'E major',
+	'F minor',
+	'F major'
 ];
 
 var currentKeyIndex = 0;
@@ -49,6 +51,9 @@ var notes = [];
 	
 	notes['B'] = { name: 'B', freq: 493.88 };
 	
+	notes['H'] = { name: 'B', freq: 493.88 };
+	notes['Hb'] = { name: 'Bb', freq: 466.16 };
+
 	notes['C'] = { name: 'C', freq: 523.25 };
 	notes['C#/Db'] = { name: 'C#/Db', freq: 554.37 };
 	notes['C#'] = { name: 'C#', freq: 554.37 };
@@ -215,6 +220,7 @@ function setKeyOfChords(){
 
 	// todo: einmal den kopf drumherum....
 	// http://www.piano-keyboard-guide.com/key-of-e-minor.html
+	// there just *must be some easier way doing diss
 	switch(arguments[0]){
 		
 		case 'A minor':
@@ -315,6 +321,26 @@ function setKeyOfChords(){
 			keyMap[B] = { name: 'B major', notes: ['B', 'D#', 'F#'], type: 'chord'};
 			keyMap[N] = { name: 'C minor', notes: ['C#', 'E', 'G#'], type: 'chord'};
 			keyMap[M] = { name: 'D# diminished', notes: ['D#', 'F#', 'A'], type: 'chord'};
+			break;
+		
+		case 'F minor':
+			keyMap[Y] = { name: 'F minor', notes: ['F', 'Ab', 'C'], type: 'chord'};
+			keyMap[X] = { name: 'G diminished', notes: ['G', 'Bb', 'Db'], type: 'chord'};
+			keyMap[C] = { name: 'Ab major', notes: ['Ab', 'C', 'Eb'], type: 'chord'};
+			keyMap[V] = { name: 'Bb minor', notes: ['Bb', 'Db', 'F'], type: 'chord'};
+			keyMap[B] = { name: 'C minor', notes: ['C', 'Eb', 'G'], type: 'chord'};
+			keyMap[N] = { name: 'Db major', notes: ['Db', 'F', 'Ab'], type: 'chord'};
+			keyMap[M] = { name: 'Eb major', notes: ['Eb', 'G', 'Bb'], type: 'chord'};
+			break;
+		
+		case 'F major':
+			keyMap[Y] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
+			keyMap[X] = { name: 'G minor', notes: ['G', 'Bb', 'D'], type: 'chord'};
+			keyMap[C] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
+			keyMap[V] = { name: 'Bb major', notes: ['Bb', 'D', 'F'], type: 'chord'};
+			keyMap[B] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+			keyMap[N] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
+			keyMap[M] = { name: 'E diminished', notes: ['E', 'G', 'Bb'], type: 'chord'};
 			break;
 		
 
