@@ -1,6 +1,13 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
 var log = jQuery('#log');
 
+var keys = [
+	'A minor',
+	'B minor'
+];
+
+var currentKeyIndex = 0;
+
 // http://pages.mtu.edu/~suits/notefreqs.html
 var notes = [];
 	notes['A'] = { name: 'A', freq: 440 };
@@ -30,18 +37,17 @@ var keyMap = [];
 	keyMap[74] = { notes: ['G'], type: 'single' };
 		keyMap[73] = { notes: ['G#/Ab'], type: 'single' };
 
-setKeyOfChords('A minor');
-// ... 
+setKeyOfChords(keys[currentKeyIndex]);
 
 var singleNoteDefGain = .17;
 var chordNoteDefGain = .11;
 
-var keys = [];
+var pressedKeyboardKeys = [];
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioNode = new AudioContext();
 
-// oscs single keys
+// oscs single pressedKeyboardKeys
 var maxSingleNoteLen = 3;
 var singleNoteOscs = [];
 for (var i = 0; i < maxSingleNoteLen; i++){
@@ -69,20 +75,33 @@ for (var i = 0; i < maxChordNoteLen; i++){
 
 
 jQuery(document.body).keydown(function(e){
-	// console.log(e.keyCode);
-	if(-1 == keys.indexOf(e.keyCode)){
-    	keys.push(e.keyCode);
+	console.log(e.keyCode);
+	if(-1 == pressedKeyboardKeys.indexOf(e.keyCode)){
+    	pressedKeyboardKeys.push(e.keyCode);
+    	// special modifier key
+    	if(81 == e.keyCode){
+    		shiftKey();
+    		return;
+    	}
     	touch();
 	}
 });
 
 jQuery(document.body).keyup(function(e){
-    keys.splice(keys.indexOf(e.keyCode), 1);
+    pressedKeyboardKeys.splice(pressedKeyboardKeys.indexOf(e.keyCode), 1);
     release(); 
 });
 
+function shiftKey(){
+	currentKeyIndex++;
+	if(currentKeyIndex >= keys.length){
+		currentKeyIndex = 0;
+	} 
+	setKeyOfChords(keys[currentKeyIndex]);
+};
+
 function touch(){
-   	play();
+	play();
 };
 
 function release(){
@@ -99,9 +118,9 @@ function play(){
 	
 	var logMessage = '';
 	
-	for(var i in keys){
+	for(var i in pressedKeyboardKeys){
 		
-		var m = keyMap[keys[i]];
+		var m = keyMap[pressedKeyboardKeys[i]];
 
 		if(null == m){ 
 			continue; 
@@ -143,7 +162,10 @@ function play(){
 
 function setKeyOfChords(){
 
+	console.log(arguments[0]);
+	
 	switch(arguments[0]){
+		
 		case 'A minor':
 			keyMap[89] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
 			keyMap[88] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
@@ -154,8 +176,24 @@ function setKeyOfChords(){
 			keyMap[77] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
 			break;
 		
-		case 'Wagulu zagulue':
-			// ....
+		case 'B minor':
+			keyMap[89] = { name: 'B minor', notes: ['B', 'D', 'F#/Gb'], type: 'chord'};
+			keyMap[88] = { name: 'C diminished', notes: ['C#/Db', 'E', 'G'], type: 'chord'};
+			keyMap[67] = { name: 'D major', notes: ['D', 'F#/Gb', 'A'], type: 'chord'};
+			keyMap[86] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+			keyMap[66] = { name: 'F#/Gb minor', notes: ['F#/Gb', 'A', 'C#/Db'], type: 'chord'};
+			keyMap[78] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+			keyMap[77] = { name: 'A major', notes: ['A', 'C#/Db', 'E'], type: 'chord'};
 			break;
 	}
 }
+
+
+
+
+
+
+
+
+
+
