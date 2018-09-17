@@ -304,6 +304,7 @@ function setKeyOfChords(){
 			keyMap[V] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
 			keyMap[B] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
 			keyMap[N] = { name: 'D major', notes: ['D', 'F#', 'A'], type: 'chord'};
+			keyMap[M] = {};
 			break;
 		
 		case 'E major':
