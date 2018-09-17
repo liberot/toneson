@@ -14,7 +14,9 @@ var keys = [
 	'E minor',
 	'E major',
 	'F minor',
-	'F major'
+	'F major',
+	'G minor',
+	'G major'
 ];
 
 var currentKeyIndex = 0;
@@ -341,6 +343,26 @@ function setKeyOfChords(){
 			keyMap[B] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
 			keyMap[N] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
 			keyMap[M] = { name: 'E diminished', notes: ['E', 'G', 'Bb'], type: 'chord'};
+			break;
+		
+		case 'G minor':
+			keyMap[Y] = { name: 'G minor', notes: ['G', 'Bb', 'D'], type: 'chord'};
+			keyMap[X] = { name: 'A diminished', notes: ['A', 'C', 'Eb'], type: 'chord'};
+			keyMap[C] = { name: 'Bb major', notes: ['Bb', 'D', 'F'], type: 'chord'};
+			keyMap[V] = { name: 'C minor', notes: ['C', 'Eb', 'A'], type: 'chord'};
+			keyMap[B] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
+			keyMap[N] = { name: 'Eb major', notes: ['Eb', 'G', 'Bb'], type: 'chord'};
+			keyMap[M] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
+			break;
+		
+		case 'G major':
+			keyMap[Y] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+			keyMap[X] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
+			keyMap[C] = { name: 'B minor', notes: ['B', 'D', 'F#'], type: 'chord'};
+			keyMap[V] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+			keyMap[B] = { name: 'D major', notes: ['D', 'F#', 'A'], type: 'chord'};
+			keyMap[N] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+			keyMap[M] = { name: 'F# diminished', notes: ['F#', 'A', 'C'], type: 'chord'};
 			break;
 		
 
