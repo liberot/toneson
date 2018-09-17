@@ -109,7 +109,7 @@ var maxChordNoteLen = 5;
 for (var i = 0; i < maxChordNoteLen; i++){
 	chordOscs.push(audioNode.createOscillator());
 	// singleNoteOscs[i].type = 'sine';
-	var rnd = parseInt(Math.random() *13) -7;
+	var rnd = parseInt((Math.random() *16) -8);
 	console.log('detune: ', rnd);
 	chordOscs[i].detune.value = rnd;
 	chordOscs[i].gainNode = audioNode.createGain();
