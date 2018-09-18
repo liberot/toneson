@@ -16,7 +16,9 @@ var keys = [
 	'F minor',
 	'F major',
 	'G minor',
-	'G major'
+	'G major',
+
+	'Olivia Newton John Magic'
 ];
 
 var currentKeyIndex = 0;
@@ -41,7 +43,10 @@ var A = 65,
 	B = 66,
 	N = 78,
 	M = 77,
-	Q = 81; 
+	Q = 81, 
+	L = 76,
+	P = 80,
+	O = 79;
 
 // http://pages.mtu.edu/~suits/notefreqs.html
 var notes = [];
@@ -223,6 +228,17 @@ function setKeyOfChords(){
 	// todo: einmal den kopf drumherum....
 	// http://www.piano-keyboard-guide.com/key-of-e-minor.html
 	// there just *must be some easier way doing diss
+	keyMap[Y] = {};
+	keyMap[X] = {};
+	keyMap[C] = {};
+	keyMap[V] = {};
+	keyMap[B] = {};
+	keyMap[N] = {};
+	keyMap[M] = {};
+	keyMap[L] = {};
+	keyMap[P] = {};
+	keyMap[O] = {};
+	
 	switch(arguments[0]){
 		
 		case 'A minor':
@@ -363,6 +379,19 @@ function setKeyOfChords(){
 			keyMap[B] = { name: 'D major', notes: ['D', 'F#', 'A'], type: 'chord'};
 			keyMap[N] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
 			keyMap[M] = { name: 'F# diminished', notes: ['F#', 'A', 'C'], type: 'chord'};
+			break;
+
+		case 'Olivia Newton John Magic':
+			keyMap[Y] = { name: 'D major', notes: ['D', 'E', 'D', 'F#'], type: 'chord'};
+			keyMap[X] = { name: 'D7b5', notes: ['D', 'G#', 'C', 'F#'], type: 'chord'};
+			keyMap[C] = { name: 'Dmaj9', notes: ['D', 'A', 'C#', 'E'], type: 'chord'};
+			keyMap[V] = { name: 'F#min7', notes: ['F#', 'A', 'E', 'C#'], type: 'chord'};
+			keyMap[B] = { name: 'A minor', notes: ['A', 'E', 'C', 'E'], type: 'chord'};
+			keyMap[N] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+			keyMap[M] = { name: 'Asus4', notes: ['A', 'D', 'A', 'D', 'E'], type: 'chord'};
+			keyMap[L] = { name: 'D minor', notes: ['D', 'A', 'D', 'F'], type: 'chord'};
+			keyMap[P] = { name: 'Bb', notes: ['A#', 'F', 'A#', 'D', 'F'], type: 'chord'};
+			keyMap[O] = { name: 'C/Bb', notes: ['A#', 'E', 'G', 'C', 'E'], type: 'chord'};
 			break;
 		
 
