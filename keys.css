@@ -17,3 +17,19 @@
 	font-family: Arial;
 	padding-bottom: 1em;
 }
+
+#view div {
+	float: left;
+	width: 31px;
+	height: 175px;
+	background-color: #666666;
+	margin-right: 1px
+}
+
+.touched {
+	opacity: .3;
+}
+
+.released {
+	opacity: .9;
+}

@@ -1,6 +1,6 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
 var log = jQuery('#log');
-var keyLog = jQuery('#keyLog')
+var keyLog = jQuery('#keyLog');
 
 var keys = [
 	'A minor',
@@ -47,6 +47,15 @@ var A = 65,
 	L = 76,
 	P = 80,
 	O = 79;
+
+var viewKeys = [];
+	viewKeys['A'] = jQuery('#view_key_a');
+	viewKeys['B'] = jQuery('#view_key_b');
+	viewKeys['C'] = jQuery('#view_key_c');
+	viewKeys['D'] = jQuery('#view_key_d');
+	viewKeys['E'] = jQuery('#view_key_e');
+	viewKeys['F'] = jQuery('#view_key_f');
+	viewKeys['G'] = jQuery('#view_key_g');
 
 // http://pages.mtu.edu/~suits/notefreqs.html
 var notes = [];
@@ -164,6 +173,7 @@ function shiftKey(){
 };
 
 function touch(){
+	drawTouch();
 	play();
 };
 
@@ -174,8 +184,45 @@ function release(){
 	for(var i = 0; i < maxChordNoteLen; i++){
     	chordOscs[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
 	}
+	drawRelease();
 	play();
 }
+
+// do diss better next time
+function drawRelease(){
+	for(var i in viewKeys){
+		var target = viewKeys[i];
+		if(null == target){
+			continue;
+		}
+		target.removeClass('touched').addClass('released');
+	}	
+};
+
+function drawTouch(){
+	for(var i in pressedKeyboardKeys){
+		var m = keyMap[pressedKeyboardKeys[i]];
+		if(null == m){ 
+			continue; 
+		}
+		var target = viewKeys[m.notes[0]];
+		if(null == target){
+			continue;
+		}
+		if('single' == m.type){
+			target.removeClass('released').addClass('touched');
+		}	
+		else if('chord' == m.type){
+			for(var ii in m.notes){
+				var target = viewKeys[m.notes[ii]];
+				if(null == target){
+					continue;
+				}
+				target.removeClass('released').addClass('touched');
+			};
+		}
+	}	
+};
 
 function play(){
 	
@@ -203,16 +250,16 @@ function play(){
 			logMessage += note.name  +' ' +note.freq +' ';
 		}	
 		else if('chord' == m.type){
-			for(var i in m.notes){
-				if(i >= maxChordNoteLen){
+			for(var ii in m.notes){
+				if(ii >= maxChordNoteLen){
 					continue;
 				}
-				var note = notes[m.notes[i]]; 
+				var note = notes[m.notes[ii]]; 
 				if(null == note){
 					continue;
 				}
-				chordOscs[i].frequency.setValueAtTime(note.freq, audioNode.currentTime);
-				chordOscs[i].gainNode.gain.setValueAtTime(chordNoteDefGain, audioNode.currentTime);
+				chordOscs[ii].frequency.setValueAtTime(note.freq, audioNode.currentTime);
+				chordOscs[ii].gainNode.gain.setValueAtTime(chordNoteDefGain, audioNode.currentTime);
 				logMessage += note.name +' ';	
 			};
 			console.log(m.name, m.notes);
@@ -393,8 +440,6 @@ function setKeyOfChords(){
 			keyMap[P] = { name: 'Bb', notes: ['A#', 'F', 'A#', 'D', 'F'], type: 'chord'};
 			keyMap[O] = { name: 'C/Bb', notes: ['A#', 'E', 'G', 'C', 'E'], type: 'chord'};
 			break;
-		
-
 	}
 
 	console.log(arguments[0]);
