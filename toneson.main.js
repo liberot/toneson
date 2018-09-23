@@ -468,7 +468,7 @@ function setKeyOfChords(){
 	keyLog.text(arguments[0]);
 
 	if(arguments[0] == 'Olivia Newton John Magic'){
-		keyLog.text(arguments[0] +' (this goes like schmitz katz: M M M M N NNN BBBBBB)');
+		keyLog.text(arguments[0] +' (this goes like schmitz katz: interesting sounding: this i go dancing: M M M M N NNN BBBBBB)');
 	}
 }
 
