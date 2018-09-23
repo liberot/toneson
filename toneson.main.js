@@ -1,6 +1,7 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
 var log = jQuery('#log');
 var keyLog = jQuery('#keyLog');
+var view = jQuery('#view');
 
 var keys = [
 	'A minor',
@@ -17,8 +18,22 @@ var keys = [
 	'F major',
 	'G minor',
 	'G major',
-
 	'Olivia Newton John Magic'
+];
+
+var viewNotes = [
+	'A',
+	'A#/Bb',
+	'B',
+	'C',
+	'C#/Db',
+	'D',
+	'D#/Eb',
+	'E',
+	'F',
+	'F#/Gb',
+	'G',
+	'G#/Ab'
 ];
 
 var currentKeyIndex = 0;
@@ -48,14 +63,6 @@ var A = 65,
 	P = 80,
 	O = 79;
 
-var viewKeys = [];
-	viewKeys['A'] = jQuery('#view_key_a');
-	viewKeys['B'] = jQuery('#view_key_b');
-	viewKeys['C'] = jQuery('#view_key_c');
-	viewKeys['D'] = jQuery('#view_key_d');
-	viewKeys['E'] = jQuery('#view_key_e');
-	viewKeys['F'] = jQuery('#view_key_f');
-	viewKeys['G'] = jQuery('#view_key_g');
 
 // http://pages.mtu.edu/~suits/notefreqs.html
 var notes = [];
@@ -145,6 +152,21 @@ for (var i = 0; i < maxChordNoteLen; i++){
 	chordOscs[i].gainNode.gain.setValueAtTime(0, audioNode.currentTime);
 	chordOscs[i].start();
 };
+
+// view
+var viewKeys = [];
+for(var i in viewNotes){
+	var itemId = 'view_key_' +viewNotes[i];
+	var half = itemId.match(/#/g);
+	itemId = itemId.replace(/#/g, 'h');
+	itemId = itemId.replace(/\//g, '-');
+	var buf = jQuery('<div id="#'+itemId+'"></div>');
+	if(null != half){
+		buf = jQuery('<div id="#'+itemId+'" class="boing"></div>');
+	}
+	view.append(buf);
+	viewKeys[viewNotes[i]] = buf;
+}
 
 jQuery(document.body).keydown(function(e){
 	// console.log(e.keyCode);
@@ -445,6 +467,23 @@ function setKeyOfChords(){
 	console.log(arguments[0]);
 	keyLog.text(arguments[0]);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
