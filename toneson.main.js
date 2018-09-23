@@ -466,6 +466,10 @@ function setKeyOfChords(){
 
 	console.log(arguments[0]);
 	keyLog.text(arguments[0]);
+
+	if(arguments[0] == 'Olivia Newton John Magic'){
+		keyLog.text(arguments[0] +' (this goes like schmitz katz: M M M M N NNN BBBBBB)');
+	}
 }
 
 
