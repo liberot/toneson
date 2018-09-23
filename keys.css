@@ -35,9 +35,11 @@
 }
 
 .touched {
-	opacity: .3;
+	position: relative;
+	top: 13px;
 }
 
 .released {
-	opacity: .9;
+	position: relative;
+	top: 0px;
 }
