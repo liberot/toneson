@@ -66,38 +66,38 @@ var A = 65,
 
 // http://pages.mtu.edu/~suits/notefreqs.html
 var notes = [];
-	notes['A'] = { name: 'A', freq: 440 };
+	notes['A'] = { name: 'A', freq: 440, view: 'A' };
 	
-	notes['A#/Bb'] = { name: 'A#/Bb', freq: 466.16 };
-	notes['A#'] = { name: 'A#', freq: 466.16 };
-	notes['Bb'] = { name: 'Bb', freq: 466.16 };
+	notes['A#/Bb'] = { name: 'A#/Bb', freq: 466.16, view: 'A#/Bb' };
+	notes['A#'] = { name: 'A#', freq: 466.16, view: 'A#/Bb' };
+	notes['Bb'] = { name: 'Bb', freq: 466.16, view: 'A#/Bb' };
 	
-	notes['B'] = { name: 'B', freq: 493.88 };
+	notes['B'] = { name: 'B', freq: 493.88, view: 'B' };
 	
-	notes['H'] = { name: 'B', freq: 493.88 };
-	notes['Hb'] = { name: 'Bb', freq: 466.16 };
+	notes['H'] = { name: 'B', freq: 493.88, view: 'B' };
+	notes['Hb'] = { name: 'Bb', freq: 466.16, view: 'B' };
 
-	notes['C'] = { name: 'C', freq: 523.25 };
-	notes['C#/Db'] = { name: 'C#/Db', freq: 554.37 };
-	notes['C#'] = { name: 'C#', freq: 554.37 };
-	notes['Db'] = { name: 'Db', freq: 554.37 };
+	notes['C'] = { name: 'C', freq: 523.25, view: 'C' };
+	notes['C#/Db'] = { name: 'C#/Db', freq: 554.37, view: 'C#/Db' };
+	notes['C#'] = { name: 'C#', freq: 554.37, view: 'C#/Db' };
+	notes['Db'] = { name: 'Db', freq: 554.37, view: 'C#/Db' };
 	
-	notes['D'] = { name: 'D', freq: 587.33 };
-	notes['D#/Eb'] = { name: 'D#/Eb', freq: 622.25 };
-	notes['D#'] = { name: 'D#', freq: 622.25 };
-	notes['Eb'] = { name: 'Eb', freq: 622.25 };
+	notes['D'] = { name: 'D', freq: 587.33, view: 'D' };
+	notes['D#/Eb'] = { name: 'D#/Eb', freq: 622.25, view: 'D#/Eb' };
+	notes['D#'] = { name: 'D#', freq: 622.25, view: 'D#/Eb' };
+	notes['Eb'] = { name: 'Eb', freq: 622.25, view: 'D#/Eb' };
 	
-	notes['E'] = { name: 'E', freq: 659.25 };
+	notes['E'] = { name: 'E', freq: 659.25, view: 'E' };
 	
-	notes['F'] = { name: 'F', freq: 698.46 };
-	notes['F#/Gb'] = { name: 'F#/Gb', freq: 739.99 };
-	notes['F#'] = { name: 'F#', freq: 739.99 };
-	notes['Gb'] = { name: 'Gb', freq: 739.99 };
+	notes['F'] = { name: 'F', freq: 698.46, view: 'F' };
+	notes['F#/Gb'] = { name: 'F#/Gb', freq: 739.99, view: 'F#/Gb' };
+	notes['F#'] = { name: 'F#', freq: 739.99, view: 'F#/Gb' };
+	notes['Gb'] = { name: 'Gb', freq: 739.99, view: 'F#/Gb' };
 	
-	notes['G'] = { name: 'G', freq: 783.99 };
-	notes['G#/Ab'] = { name: 'G#/Ab', freq: 830.61 };
-	notes['G#'] = { name: 'G#', freq: 830.61 };
-	notes['Ab'] = { name: 'Ab', freq: 830.61 };
+	notes['G'] = { name: 'G', freq: 783.99, view: 'G' };
+	notes['G#/Ab'] = { name: 'G#/Ab', freq: 830.61, view: 'G#/Ab' };
+	notes['G#'] = { name: 'G#', freq: 830.61, view: 'G#/Ab' };
+	notes['Ab'] = { name: 'Ab', freq: 830.61, view: 'G#/Ab' };
 
 var keyMap = [];
 	keyMap[A] = { notes: ['A'], type: 'single' };
@@ -156,12 +156,14 @@ for (var i = 0; i < maxChordNoteLen; i++){
 // view
 var viewKeys = [];
 for(var i in viewNotes){
-	var itemId = 'view_key_' +viewNotes[i];
-	var half = itemId.match(/#/g);
-	itemId = itemId.replace(/#/g, 'h');
-	itemId = itemId.replace(/\//g, '-');
+	var idx = notes[viewNotes[i]].view;
+	var hlf = idx.match(/#/g);
+	var itemId = 'view_key_' +idx;
+		itemId = itemId.replace(/#/g, 'h');
+		itemId = itemId.replace(/\//g, '-');
+
 	var buf = jQuery('<div id="#'+itemId+'"></div>');
-	if(null != half){
+	if(null != hlf){
 		buf = jQuery('<div id="#'+itemId+'" class="boing"></div>');
 	}
 	view.append(buf);
@@ -222,24 +224,22 @@ function drawRelease(){
 };
 
 function drawTouch(){
+	
 	for(var i in pressedKeyboardKeys){
 		var m = keyMap[pressedKeyboardKeys[i]];
 		if(null == m){ 
 			continue; 
 		}
-		var target = viewKeys[m.notes[0]];
-		if(null == target){
-			continue;
-		}
 		if('single' == m.type){
+			var target = viewKeys[m.notes[0]];
+			if(null == target){ continue; }
 			target.removeClass('released').addClass('touched');
 		}	
 		else if('chord' == m.type){
 			for(var ii in m.notes){
-				var target = viewKeys[m.notes[ii]];
-				if(null == target){
-					continue;
-				}
+				var iidx = notes[m.notes[ii]].view;
+				var target = viewKeys[iidx];
+				if(null == target){ continue; }
 				target.removeClass('released').addClass('touched');
 			};
 		}
@@ -296,7 +296,7 @@ function setKeyOfChords(){
 
 	// todo: einmal den kopf drumherum....
 	// http://www.piano-keyboard-guide.com/key-of-e-minor.html
-	// there just *must be some easier way doing diss
+	// there just *gotta be some slick way doing diss
 	keyMap[Y] = {};
 	keyMap[X] = {};
 	keyMap[C] = {};
@@ -466,10 +466,6 @@ function setKeyOfChords(){
 
 	console.log(arguments[0]);
 	keyLog.text(arguments[0]);
-
-	if(arguments[0] == 'Olivia Newton John Magic'){
-		keyLog.text(arguments[0] +' (this goes like schmitz katz: interesting sounding: this i go dancing: M M M M N NNN BBBBBB)');
-	}
 }
 
 
