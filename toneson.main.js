@@ -2,6 +2,8 @@
 var log = jQuery('#log');
 var keyLog = jQuery('#keyLog');
 var view = jQuery('#view');
+var hells = jQuery('#hells');
+var darks = jQuery('#darks');
 
 var keys = [
 	'A minor',
@@ -162,11 +164,22 @@ for(var i in viewNotes){
 		itemId = itemId.replace(/#/g, 'h');
 		itemId = itemId.replace(/\//g, '-');
 
-	var buf = jQuery('<div id="#'+itemId+'"></div>');
+	var buf = '';
+	if(null == hlf){
+		buf = jQuery('<div id="#'+itemId+'"></div>');
+		hells.append(buf);
+		// woabh voll schlecht
+		switch(itemId){
+			case 'view_key_B':
+			case 'view_key_E':
+				darks.append('<div id="" class="hidden">');
+				break;
+		}
+	}
 	if(null != hlf){
 		buf = jQuery('<div id="#'+itemId+'" class="boing"></div>');
+		darks.append(buf);
 	}
-	view.append(buf);
 	viewKeys[viewNotes[i]] = buf;
 }
 
