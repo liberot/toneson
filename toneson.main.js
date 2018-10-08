@@ -164,20 +164,20 @@ for(var i in viewNotes){
 		itemId = itemId.replace(/#/g, 'h');
 		itemId = itemId.replace(/\//g, '-');
 
-	var buf = '';
+	var buf = null;
 	if(null == hlf){
 		buf = jQuery('<div id="#'+itemId+'"></div>');
 		hells.append(buf);
-		// woabh voll schlecht
+		// adds an unseen dark placeholder 
 		switch(itemId){
 			case 'view_key_B':
 			case 'view_key_E':
-				darks.append('<div id="" class="hidden">');
+				darks.append('<div class="hidden">');
 				break;
 		}
 	}
 	if(null != hlf){
-		buf = jQuery('<div id="#'+itemId+'" class="boing"></div>');
+		buf = jQuery('<div id="#'+itemId+'" class="dark"></div>');
 		darks.append(buf);
 	}
 	viewKeys[viewNotes[i]] = buf;
