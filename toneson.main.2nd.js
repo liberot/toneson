@@ -43,7 +43,7 @@ var CP = {
 		'G major',
 		'A major',
 		'B major',
-		'Cry Me A River Bluez'
+		'King Curtis and the Kingpins: Cry Me A River Bluez'
 	],
 	
 	tones: [
