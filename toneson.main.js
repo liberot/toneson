@@ -1,9 +1,9 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
-var log = jQuery('#log');
+var msgLog = jQuery('#msgLog');
 var keyLog = jQuery('#keyLog');
 var view = jQuery('#view');
-var hells = jQuery('#hells');
-var darks = jQuery('#darks');
+var whites = jQuery('#whites');
+var blacks = jQuery('#darks');
 
 var keys = [
 	'A minor',
@@ -92,6 +92,7 @@ var notes = [];
 	notes['E'] = { name: 'E', freq: 659.25, view: 'E' };
 	
 	notes['F'] = { name: 'F', freq: 698.46, view: 'F' };
+	
 	notes['F#/Gb'] = { name: 'F#/Gb', freq: 739.99, view: 'F#/Gb' };
 	notes['F#'] = { name: 'F#', freq: 739.99, view: 'F#/Gb' };
 	notes['Gb'] = { name: 'Gb', freq: 739.99, view: 'F#/Gb' };
@@ -167,18 +168,18 @@ for(var i in viewNotes){
 	var buf = null;
 	if(null == hlf){
 		buf = jQuery('<div id="#'+itemId+'"></div>');
-		hells.append(buf);
+		whites.append(buf);
 		// adds an unseen dark placeholder 
 		switch(itemId){
 			case 'view_key_B':
 			case 'view_key_E':
-				darks.append('<div class="hidden">');
+				blacks.append('<div class="hidden">');
 				break;
 		}
 	}
 	if(null != hlf){
 		buf = jQuery('<div id="#'+itemId+'" class="dark"></div>');
-		darks.append(buf);
+		blacks.append(buf);
 	}
 	viewKeys[viewNotes[i]] = buf;
 }
@@ -302,7 +303,7 @@ function play(){
 		}	
 	};
 
-	log.text(logMessage);
+	msgLog.text(logMessage);
 }
 
 function setKeyOfChords(){
