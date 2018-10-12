@@ -15,7 +15,17 @@
 	padding: 1em;
 }
 
-#msgLog {
+#chordLog {
+	font-size: .62em;
+	font-family: Georgia;
+	font-style: italic;
+	background-color: #DDDDFF;
+	color: #666666;
+	padding: 1em;
+	height: 2em;
+}
+
+#toneLog {
 	font-size: 2em;
 	font-family: Georgia;
 	background-color: #e6ffb3;

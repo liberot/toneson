@@ -8,7 +8,9 @@ var CP = {
 	audioNode: null,
 
 	keyLog: null,
-	msgLog: null,
+	toneLog: null,
+	pitchLog: null,
+	chordLog: null,
 	whites: null,
 	blacks: null,
 
@@ -31,9 +33,9 @@ var CP = {
 
 	outBuf: '',
 
-	currentPitch: '',
-	pitchIdx: 0,
-	pitches: [
+	currentPitchLabel: '',
+	currentPitchIdx: 0,
+	currentPitchTable: [
 		'C major',
 		'D major',
 		'E major',
@@ -61,13 +63,13 @@ var CP = {
 
 	// as in c minor
 	chords: [
-		{ idx: 'C major', tones: [0, 4, 7] },   // CEG
-		{ idx: 'D minor', tones: [2, 7, 9] },   // DFA
-		{ idx: 'E minor', tones: [4, 7, 11] },  // EGB
-		{ idx: 'F major', tones: [5, 9, 12] },  // FAC
-		{ idx: 'G major', tones: [8, 11, 2] },  // GBD
-		{ idx: 'A minor', tones: [9, 12, 4] },  // ACE
-		{ idx: 'B diminished', tones: [12, 2, 5] },  // BDF
+		{ idx: 'C major', tones: [0, 4, 7], label: 'C major CEG' },   // CEG
+		{ idx: 'D minor', tones: [2, 7, 9], label: 'D minor DFA' },   // DFA
+		{ idx: 'E minor', tones: [4, 7, 11], label: 'E minor EGB' },  // EGB
+		{ idx: 'F major', tones: [5, 9, 12], label: 'F major FAC' },  // FAC
+		{ idx: 'G major', tones: [8, 11, 2], label: 'G major GBD' },  // GBD
+		{ idx: 'A minor', tones: [9, 12, 4], label: 'A minor ACE' },  // ACE
+		{ idx: 'B diminished', tones: [12, 2, 5], label: 'B diminished BDF' },  // BDF
 	],
 
 	pressedKeyboardKeys: [],
@@ -92,7 +94,7 @@ var CP = {
 				}
 			}
 		};
-		CP.msgLog.html(CP.outBuf)			
+		CP.toneLog.html(CP.outBuf)			
 	},
 
 	playStoredTones: function(){
@@ -122,7 +124,9 @@ var CP = {
 					CP.chordToneDefGain, 
 					CP.audioNode.currentTime
 				);
-    		}
+    		};
+
+    		CP.chordLog.html(chord.label);
 		}
 	},
 
@@ -156,28 +160,27 @@ var CP = {
 		CP.log('CP.setCurrentPitch():', arguments);
 
 		var pidx = 0;
-		for(var idx in CP.pitches){
-			if(arguments[0] == CP.pitches[idx]){
-				CP.currentPitch = CP.pitches[idx];
-				CP.pitchIdx = idx;
+		for(var idx in CP.currentPitchTable){
+			if(arguments[0] == CP.currentPitchTable[idx]){
+				CP.currentPitchLabel = CP.currentPitchTable[idx];
+				CP.currentPitchIdx = idx;
 			}
 		}
 
-		CP.pitchLog.html(CP.currentPitch);
+		CP.pitchLog.html(CP.currentPitchLabel);
 	},
 
 	shiftPitch: function(){
 		CP.log('CP.shiftPitch():', arguments);
 
-		CP.pitchIdx++;
-		if(CP.pitchIdx >= CP.pitches.length){
-			CP.pitchIdx = 0;
+		CP.currentPitchIdx++;
+		if(CP.currentPitchIdx >= CP.currentPitchTable.length){
+			CP.currentPitchIdx = 0;
 		}
 
-		CP.currentPitch = CP.pitches[CP.pitchIdx];
-		console.log(CP.currentPitch);
-
-		CP.pitchLog.html(CP.currentPitch);
+		CP.currentPitchLabel = CP.currentPitchTable[CP.currentPitchIdx];
+	
+		CP.pitchLog.html(CP.currentPitchLabel);
 	},
 
 	raiseMultipl: function(){
@@ -224,7 +227,8 @@ var CP = {
     		CP.tones[idx].view.removeClass('touched').addClass('released');	
     	};
 
-    	CP.msgLog.html('');
+    	CP.toneLog.html('');
+    	CP.chordLog.html('');
    },
 
    initKeys: function(){
@@ -381,8 +385,9 @@ var CP = {
 		CP.whites = jQuery('#whites');
 		CP.blacks = jQuery('#blacks');
 		CP.keyLog = jQuery('#keyLog');
-		CP.msgLog = jQuery('#msgLog');
+		CP.toneLog = jQuery('#toneLog');
 		CP.pitchLog = jQuery('#pitchLog');
+		CP.chordLog = jQuery('#chordLog');
 	},
 
 	init: function(){
