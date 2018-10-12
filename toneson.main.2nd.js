@@ -94,8 +94,12 @@ var CP = {
 
 	raiseMultipl: function(){
 		CP.log('shiftMultipl:', arguments);
-		
-		CP.multipl++;
+		if(CP.multipl <= 1){
+			CP.multipl *=2;
+		}
+		else {
+			CP.multipl++;
+		}
 		CP.keyLog.html(CP.multipl);
 	},
 
@@ -104,6 +108,7 @@ var CP = {
 		CP.multipl--;
 		if(CP.multipl <= 1){
 			CP.multipl = 1;
+			CP.multipl /=2;
 		}
 		CP.keyLog.html(CP.multipl);
 	},
