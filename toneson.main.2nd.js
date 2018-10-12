@@ -42,7 +42,8 @@ var CP = {
 		'F major',
 		'G major',
 		'A major',
-		'B major'
+		'B major',
+		'Cry Me A River Bluez'
 	],
 	
 	tones: [
@@ -61,15 +62,29 @@ var CP = {
 		{ idx: 'C',  freq: 523.25 *2, label: 'C', pos: 0, fill: 0, view: null, vid: 'c2' }       // 12 C
 	],
 
-	// as in c minor
-	chords: [
-		{ idx: 'C major', tones: [0, 4, 7], label: 'C major CEG' },   // CEG
-		{ idx: 'D minor', tones: [2, 7, 9], label: 'D minor DFA' },   // DFA
-		{ idx: 'E minor', tones: [4, 7, 11], label: 'E minor EGB' },  // EGB
-		{ idx: 'F major', tones: [5, 9, 12], label: 'F major FAC' },  // FAC
-		{ idx: 'G major', tones: [8, 11, 2], label: 'G major GBD' },  // GBD
-		{ idx: 'A minor', tones: [9, 12, 4], label: 'A minor ACE' },  // ACE
-		{ idx: 'B diminished', tones: [12, 2, 5], label: 'B diminished BDF' },  // BDF
+	pitches: [
+		{ idx: 'C major', 
+			chords: [
+				{ idx: 'C major', tones: [0, 4, 7], label: 'C major CEG' },   // CEG
+				{ idx: 'D minor', tones: [2, 7, 9], label: 'D minor DFA' },   // DFA
+				{ idx: 'E minor', tones: [4, 7, 11], label: 'E minor EGB' },  // EGB
+				{ idx: 'F major', tones: [5, 9, 12], label: 'F major FAC' },  // FAC
+				{ idx: 'G major', tones: [8, 11, 2], label: 'G major GBD' },  // GBD
+				{ idx: 'A minor', tones: [9, 12, 4], label: 'A minor ACE' },  // ACE
+				{ idx: 'B diminished', tones: [12, 2, 5], label: 'B diminished BDF' }  // BDF
+			]
+		},
+		{ idx: 'D major', 
+			chords: [
+				{ idx: 'D major', tones: [2, 6, 9], label: 'D major DF#A' },   
+				{ idx: 'E minor', tones: [4, 7, 11], label: 'E minor EGB' }, 
+				{ idx: 'F# minor', tones: [6, 9, 1], label: 'F# minor F#AC#' }, 
+				{ idx: 'G major', tones: [8, 11, 2], label: 'G major GBD' },
+				{ idx: 'A major', tones: [9, 1, 4], label: 'A major AC#E' },  
+				{ idx: 'B minor', tones: [11, 2, 6], label: 'B minor BDF#' }, 
+				{ idx: 'C# diminished', tones: [1, 4, 7], label: 'C# diminished C#EG' }  
+			]
+		}
 	],
 
 	pressedKeyboardKeys: [],
@@ -100,13 +115,16 @@ var CP = {
 	playStoredTones: function(){
 		CP.log('CP.playStoredTones():', arguments);
 		
+		var pitch = CP.pitches[CP.currentPitchIdx];
+		if(null == pitch){ return; }
+
 		for(var idx in CP.pressedKeyboardKeys){
 			var m = CP.storedKeysMap[CP.pressedKeyboardKeys[idx]];
 
 			if(null == m){ continue; }
 
-			var chord = CP.chords[m];
-
+			var chord = pitch.chords[m];
+			
 			if(null == chord){ continue};
 			if(null == chord.tones){ continue; }
 			
