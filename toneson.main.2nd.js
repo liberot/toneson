@@ -4,7 +4,7 @@
 
 var CP = {
 
-	AudioContext: null,
+	audioContext: null,
 	audioNode: null,
 
 	keyLog: null,
@@ -168,12 +168,12 @@ var CP = {
 	},
 
 	initOscs: function(){
-		CP.AudioContext = window.AudioContext || window.webkitAudioContext;
+		CP.audioContext = window.AudioContext || window.webkitAudioContext;
 		CP.audioNode = new AudioContext();
 
 		for (var idx = 0; idx < CP.maxSingleToneLen; idx++){
 			CP.singleToneOscs.push(CP.audioNode.createOscillator());
-			// singleToneOscs[i].type = 'sine';
+			// CP.singleToneOscs[i].type = 'sine';
 			CP.singleToneOscs[idx].gainNode = CP.audioNode.createGain();
 			CP.singleToneOscs[idx].connect(CP.singleToneOscs[idx].gainNode);
 			CP.singleToneOscs[idx].gainNode.connect(CP.audioNode.destination);
