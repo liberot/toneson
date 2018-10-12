@@ -45,7 +45,7 @@ var CP = {
 		'G major',
 		'A major',
 		'B major',
-		'It Is Good To Be King'
+		'Industrial Disease'
 	],
 	
 	tones: [
@@ -142,15 +142,16 @@ var CP = {
 				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' 		}  
 			]
 		},
-		{ idx: 'It Is Good To Be King', 
+		{ idx: 'Industrial Disease', 
 			chords: [
-				{ idx: 'E minor', 		tones: [4, 7, 9], 	label: 'E minor EGB' 		},
-				{ idx: 'A minor', 		tones: [9, 0, 4], 	label: 'A minor ACE' 		}, 
-				{ idx: 'D major', 		tones: [4, 6, 9], 	label: 'D major DF#A' 		},
 				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' 		},
+				{ idx: 'D major', 		tones: [4, 6, 9], 	label: 'D major DF#A' 		},
+				{ idx: 'E major', 		tones: [4, 7, 9], 	label: 'E minor EGB' 		},
 				{ idx: 'G major', 		tones: [7, 11, 2], 	label: 'G major GBD' 		}, 
-				{ idx: 'A sus', 		tones: [5, 9, 2, 4],label: 'A sus FADE' 		},
+				{ idx: 'D major', 		tones: [4, 6, 9], 	label: 'D major DF#A' 		},
 				{ idx: 'C major', 		tones: [12, 4, 7], 	label: 'C major CEG' 		},  
+				{ idx: 'B minor', 		tones: [11, 2, 6], 	label: 'B minor BDF#' 		}, 
+				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' 		},
 			]
 		}
 	],
@@ -163,7 +164,7 @@ var CP = {
 	},
 
 	drawBoardTouch: function(){
-		CP.log('CP.playStoredTones():', arguments);
+		CP.log('CP.drawBoardTouch():', arguments);
 
 		CP.outBuf = '';
 		for(var idx in CP.pressedKeyboardKeys){
