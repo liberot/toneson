@@ -224,6 +224,9 @@ var CP = {
 					CP.chordToneDefGain, 
 					CP.audioNode.currentTime
 				);
+
+				// ?? put it some place else
+				tone.view.addClass('storetouched');	
     		};
 
     		CP.chordLog.html(chord.label);
@@ -328,6 +331,14 @@ var CP = {
 		};
 	},
 
+	resetBoardDrawings: function(){
+		// removes views
+    	for(var idx in CP.tones){
+    		CP.tones[idx].view.removeClass('storetouched');	
+    		CP.tones[idx].view.removeClass('touched').addClass('released');	
+    	};
+	},
+
 	touch: function(){
 		CP.log('CP.touch():', CP.pressedKeyboardKeys);
 		// CP.resetOscs();
@@ -338,13 +349,8 @@ var CP = {
 	
 	release: function(){
 		CP.log('CP.release():', arguments);
-
 		CP.resetOscs();
-
-    	for(var idx in CP.tones){
-    		CP.tones[idx].view.removeClass('touched').addClass('released');	
-    	};
-
+		CP.resetBoardDrawings();
     	CP.toneLog.html('');
     	CP.chordLog.html('');
    },

@@ -94,3 +94,7 @@
 	position: relative;
 	top: 0px;
 }
+
+.storetouched {
+	opacity: .7	
+}
