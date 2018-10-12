@@ -229,8 +229,8 @@ var CP = {
 		}
 	},
 
-	playSingleTone: function(){
-		CP.log('CP.playSingleTone():', arguments);
+	playSingleTones: function(){
+		CP.log('CP.playSingleTones():', arguments);
 
 		for(var idx in CP.pressedKeyboardKeys){
 		
@@ -315,17 +315,9 @@ var CP = {
 		CP.keyLog.html(CP.multipl);
 	},
 
-	touch: function(){
-		CP.log('CP.touch():', CP.pressedKeyboardKeys);
-		// ----
-		CP.drawBoardTouch();
-		CP.playStoredTones();
-		CP.playSingleTone();
-	},
-	
-	release: function(){
-		CP.log('CP.release():', arguments);
-
+	resetOscs: function(){
+		CP.log('CP.resetOscs():', CP.pressedKeyboardKeys);
+		
 		for(var idx = 0; idx < CP.maxSingleToneLen; idx++){
 			CP.singleToneOscs[idx].gainNode.gain.setValueAtTime(0, CP.audioNode.currentTime);
     	};
@@ -333,7 +325,21 @@ var CP = {
     	for(var idx = 0; idx < CP.maxChordTonesLen; idx++){
     		CP.multiToneOscs[idx].gainNode.gain.setValueAtTime(0, CP.audioNode.currentTime);
 		};
-		
+	},
+
+	touch: function(){
+		CP.log('CP.touch():', CP.pressedKeyboardKeys);
+		// CP.resetOscs();
+		CP.drawBoardTouch();
+		CP.playStoredTones();
+		CP.playSingleTones();
+	},
+	
+	release: function(){
+		CP.log('CP.release():', arguments);
+
+		CP.resetOscs();
+
     	for(var idx in CP.tones){
     		CP.tones[idx].view.removeClass('touched').addClass('released');	
     	};
