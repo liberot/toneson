@@ -4,6 +4,8 @@
 
 var CP = {
 
+	detune: 31,
+
 	audioContext: null,
 	audioNode: null,
 
@@ -428,7 +430,7 @@ var CP = {
 		for (var idx = 0; idx < CP.maxChordTonesLen; idx++){
 			CP.multiToneOscs.push(CP.audioNode.createOscillator());
 			// CP.singleToneOscs[i].type = 'sine';
-			var rnd = parseInt((Math.random() *16) -8);
+			var rnd = parseInt((Math.random() *CP.detune) -CP.detune/2);
 			CP.log('detune: ', rnd);
 			CP.multiToneOscs[idx].detune.value = rnd;
 			CP.multiToneOscs[idx].gainNode = CP.audioNode.createGain();
