@@ -1,7 +1,5 @@
 'use strict';
 
-// var CP = null CP ? {} : CP;
-
 var CP = {
 
 	detune: 31,
@@ -13,6 +11,7 @@ var CP = {
 	toneLog: null,
 	pitchLog: null,
 	chordLog: null,
+
 	whites: null,
 	blacks: null,
 
@@ -28,12 +27,13 @@ var CP = {
 	singleToneDefGain: 0.17,
 	chordToneDefGain: 0.11,
 
-
 	multipl: 1,
 
 	tasker: null, 
 
 	outBuf: '',
+
+	pressedKeyboardKeys: [],
 
 	currentPitchLabel: '',
 	currentPitchIdx: 0,
@@ -45,23 +45,23 @@ var CP = {
 		'G major',
 		'A major',
 		'B major',
-		'King Curtis and the Kingpins: Cry Me A River Bluez'
+		'It Is Good To Be King'
 	],
 	
 	tones: [
-		{ idx: 'C',  freq: 523.25 *1, label: 'C', pos: 0, fill: 0, view: null, vid: 'c1' },      // 0 C
-		{ idx: 'C#', freq: 554.37 *1, label: 'C#/Db', pos: 1, fill: 0, view: null, vid: 'c1+' }, // 1
-		{ idx: 'D',  freq: 587.33 *1, label: 'D', pos: 0, fill: 0, view: null, vid: 'd1' },      // 2 D
-		{ idx: 'D#', freq: 622.25 *1, label: 'D#/Eb', pos: 1, fill: 0, view: null, vid: 'd1+' }, // 3
-		{ idx: 'E',  freq: 659.25 *1, label: 'E', pos: 0, fill: 1, view: null, vid: 'e1' },      // 4 E
-		{ idx: 'F',  freq: 698.46 *1, label: 'F', pos: 0, fill: 0, view: null, vid: 'f1' },      // 5 F
-		{ idx: 'F#', freq: 739.99 *1, label: 'F#/Gb', pos: 1, fill: 0, view: null, vid: 'f1+' }, // 6
-		{ idx: 'G',  freq: 783.99 *1, label: 'G', pos: 0, fill: 0, view: null, vid: 'g1' },      // 7 G
-		{ idx: 'G#', freq: 830.61 *1, label: 'G#/Ab', pos: 1, fill: 0, view: null, vid: 'g1+' }, // 8
-		{ idx: 'A',  freq: 440.00 *2, label: 'A', pos: 0, fill: 0, view: null, vid: 'a1' },	     // 9 A
-		{ idx: 'A#', freq: 466.16 *2, label: 'A#/Bb', pos: 1, fill: 0, view: null, vid: 'a1+' }, // 10
-		{ idx: 'B',  freq: 493.88 *2, label: 'B', pos: 0, fill: 0, view: null, vid: 'b1' },      // 11 B
-		{ idx: 'C',  freq: 523.25 *2, label: 'C', pos: 0, fill: 0, view: null, vid: 'c2' }       // 12 C
+		{ idx: 'C',  freq: 523.25 *1, label: 'C', 		pos: 0, fill: 0, view: null, vid: 'c1'  },      // 0 C
+		{ idx: 'C#', freq: 554.37 *1, label: 'C#/Db', 	pos: 1, fill: 0, view: null, vid: 'c1+' }, // 1
+		{ idx: 'D',  freq: 587.33 *1, label: 'D', 		pos: 0, fill: 0, view: null, vid: 'd1'  },      // 2 D
+		{ idx: 'D#', freq: 622.25 *1, label: 'D#/Eb', 	pos: 1, fill: 0, view: null, vid: 'd1+' }, // 3
+		{ idx: 'E',  freq: 659.25 *1, label: 'E', 		pos: 0, fill: 1, view: null, vid: 'e1'  },      // 4 E
+		{ idx: 'F',  freq: 698.46 *1, label: 'F', 		pos: 0, fill: 0, view: null, vid: 'f1'  },      // 5 F
+		{ idx: 'F#', freq: 739.99 *1, label: 'F#/Gb', 	pos: 1, fill: 0, view: null, vid: 'f1+' }, // 6
+		{ idx: 'G',  freq: 783.99 *1, label: 'G', 		pos: 0, fill: 0, view: null, vid: 'g1'  },      // 7 G
+		{ idx: 'G#', freq: 830.61 *1, label: 'G#/Ab', 	pos: 1, fill: 0, view: null, vid: 'g1+' }, // 8
+		{ idx: 'A',  freq: 440.00 *2, label: 'A', 		pos: 0, fill: 0, view: null, vid: 'a1'  },	     // 9 A
+		{ idx: 'A#', freq: 466.16 *2, label: 'A#/Bb',	pos: 1, fill: 0, view: null, vid: 'a1+' }, // 10
+		{ idx: 'B',  freq: 493.88 *2, label: 'B', 		pos: 0, fill: 0, view: null, vid: 'b1'  },      // 11 B
+		{ idx: 'C',  freq: 523.25 *2, label: 'C', 		pos: 0, fill: 0, view: null, vid: 'c2'  }       // 12 C
 	],
 
 	pitches: [
@@ -122,29 +122,38 @@ var CP = {
 		},
 		{ idx: 'A major', 
 			chords: [
-				{ idx: 'A major', 		tones: [9, 2, 4], 	label: 'A major AC#E' }, 
-				{ idx: 'B diminished', 	tones: [11, 2, 5], 	label: 'B diminished BDF' }, 
-				{ idx: 'C major', 		tones: [0, 4, 7], 	label: 'C major CEG' }, 
-				{ idx: 'D minor', 		tones: [2, 4, 11], 	label: 'D minor DFA' },  
-				{ idx: 'E minor', 		tones: [4, 7, 9], 	label: 'E minor EGB' },
-				{ idx: 'F major', 		tones: [5, 9, 12], 	label: 'F major FAC' },
-				{ idx: 'G major', 		tones: [7, 11, 2], 	label: 'G major GBD' }  
+				{ idx: 'A major', 		tones: [9, 2, 4], 	label: 'A major AC#E' 		}, 
+				{ idx: 'B diminished', 	tones: [11, 2, 5], 	label: 'B diminished BDF' 	}, 
+				{ idx: 'C major', 		tones: [0, 4, 7], 	label: 'C major CEG' 		}, 
+				{ idx: 'D minor', 		tones: [2, 4, 11], 	label: 'D minor DFA' 		},  
+				{ idx: 'E minor', 		tones: [4, 7, 9], 	label: 'E minor EGB' 		},
+				{ idx: 'F major', 		tones: [5, 9, 12], 	label: 'F major FAC' 		},
+				{ idx: 'G major', 		tones: [7, 11, 2], 	label: 'G major GBD' 		}  
 			]
 		},
 		{ idx: 'B major', 
 			chords: [
-				{ idx: 'B major', 		tones: [11, 3, 6], 	label: 'BD#F#' }, 
-				{ idx: 'C minor', 		tones: [1, 4, 8], 	label: 'C minor C#EG#' }, 
-				{ idx: 'D# minor', 		tones: [3, 6, 10], 	label: 'D# minor D#F#A#' }, 
-				{ idx: 'E major', 		tones: [4, 8, 11], 	label: 'E major EG#B' },  
-				{ idx: 'F# major', 		tones: [6, 10, 1], 	label: 'F# major F#A#C#' },
-				{ idx: 'G# minor', 		tones: [8, 11, 3], 	label: 'G# minor G#BD#' },
-				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' }  
+				{ idx: 'B major', 		tones: [11, 3, 6], 	label: 'BD#F#' 				}, 
+				{ idx: 'C minor', 		tones: [1, 4, 8], 	label: 'C minor C#EG#' 		}, 
+				{ idx: 'D# minor', 		tones: [3, 6, 10], 	label: 'D# minor D#F#A#' 	}, 
+				{ idx: 'E major', 		tones: [4, 8, 11], 	label: 'E major EG#B' 		},  
+				{ idx: 'F# major', 		tones: [6, 10, 1], 	label: 'F# major F#A#C#' 	},
+				{ idx: 'G# minor', 		tones: [8, 11, 3], 	label: 'G# minor G#BD#' 	},
+				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' 		}  
+			]
+		},
+		{ idx: 'It Is Good To Be King', 
+			chords: [
+				{ idx: 'E minor', 		tones: [4, 7, 9], 	label: 'E minor EGB' 		},
+				{ idx: 'A minor', 		tones: [9, 0, 4], 	label: 'A minor ACE' 		}, 
+				{ idx: 'D major', 		tones: [4, 6, 9], 	label: 'D major DF#A' 		},
+				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' 		},
+				{ idx: 'G major', 		tones: [7, 11, 2], 	label: 'G major GBD' 		}, 
+				{ idx: 'A sus', 		tones: [5, 9, 2, 4],label: 'A sus FADE' 		},
+				{ idx: 'C major', 		tones: [0, 4, 7], 	label: 'C major CEG' 		},  
 			]
 		}
 	],
-
-	pressedKeyboardKeys: [],
 
 	drawWorkspace: function(){
 		CP.log('CP.drawWorkspace():', arguments);
@@ -154,6 +163,8 @@ var CP = {
 	},
 
 	drawBoardTouch: function(){
+		CP.log('CP.playStoredTones():', arguments);
+
 		CP.outBuf = '';
 		for(var idx in CP.pressedKeyboardKeys){
 			var m = CP.tonesKeyMap[CP.pressedKeyboardKeys[idx]];
@@ -166,6 +177,7 @@ var CP = {
 				}
 			}
 		};
+
 		CP.toneLog.html(CP.outBuf)			
 	},
 
@@ -173,7 +185,9 @@ var CP = {
 		CP.log('CP.playStoredTones():', arguments);
 		
 		var pitch = CP.pitches[CP.currentPitchIdx];
-		if(null == pitch){ return; }
+		if(null == pitch){ 
+			return; 
+		}
 
 		for(var idx in CP.pressedKeyboardKeys){
 			var m = CP.storedKeysMap[CP.pressedKeyboardKeys[idx]];
@@ -271,28 +285,33 @@ var CP = {
 		}
 
 		CP.currentPitchLabel = CP.currentPitchTable[CP.currentPitchIdx];
-	
+
 		CP.pitchLog.html(CP.currentPitchLabel);
 	},
 
 	raiseMultipl: function(){
 		CP.log('CP.shiftMultipl():', arguments);
+		
 		if(CP.multipl <= 1){
 			CP.multipl *=2;
 		}
 		else {
 			CP.multipl++;
 		}
+		
 		CP.keyLog.html(CP.multipl);
 	},
 
 	lowerMultipl: function(){
 		CP.log('CP.lowerMultipl():', arguments);
+		
 		CP.multipl--;
+		
 		if(CP.multipl <= 1){
 			CP.multipl = 1;
 			CP.multipl /=2;
 		}
+		
 		CP.keyLog.html(CP.multipl);
 	},
 
@@ -427,6 +446,7 @@ var CP = {
 
 	initMultiToneOscs: function(){
 		CP.log('CP.initMultiToneOscs():', arguments);
+		
 		for (var idx = 0; idx < CP.maxChordTonesLen; idx++){
 			CP.multiToneOscs.push(CP.audioNode.createOscillator());
 			// CP.singleToneOscs[i].type = 'sine';
@@ -442,6 +462,8 @@ var CP = {
 	},
 
 	initSingleToneOscs: function(){
+		CP.log('CP.initSingleToneOscs():', arguments);
+		
 		CP.audioContext = window.AudioContext || window.webkitAudioContext;
 		CP.audioNode = new AudioContext();
 
@@ -479,6 +501,8 @@ var CP = {
 	},
 
 	initViews: function(){
+		CP.log('CP.initViews():', arguments);
+
 		CP.whites = jQuery('#whites');
 		CP.blacks = jQuery('#blacks');
 		CP.keyLog = jQuery('#keyLog');
