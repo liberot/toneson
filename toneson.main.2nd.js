@@ -20,29 +20,34 @@ var CP = {
 	
 	singleToneDefGain: .17,
 
+	multipl: 1,
+
 	outBuf: '',
 
 	tones: [
-		{ idx: 'C',  freq: 523.25 *1, label: 'C', pos: 0, fill: 0, view: null, m: 1, vid: 'c' },
-		{ idx: 'C#', freq: 554.37 *1, label: 'C#/Db', pos: 1, fill: 0, view: null, m: 1, vid: 'c_' },
-		{ idx: 'D',  freq: 587.33 *1, label: 'D', pos: 0, fill: 0, view: null, m: 1, vid: 'd' },
-		{ idx: 'D#', freq: 622.25 *1, label: 'D#/Eb', pos: 1, fill: 0, view: null, m: 1, vid: 'd_' },
-		{ idx: 'E',  freq: 659.25 *1, label: 'E', pos: 0, fill: 1, view: null, m: 1, vid: 'e' },
-		{ idx: 'F',  freq: 698.46 *1, label: 'F', pos: 0, fill: 0, view: null, m: 1, vid: 'f' },
-		{ idx: 'F#', freq: 739.99 *1, label: 'F#/Gb', pos: 1, fill: 0, view: null, m: 1, vid: 'f_' },
-		{ idx: 'G',  freq: 783.99 *1, label: 'G', pos: 0, fill: 0, view: null, m: 1, vid: 'g' },
-		{ idx: 'G#', freq: 830.61 *1, label: 'G#/Ab', pos: 1, fill: 0, view: null, m: 1, vid: 'g_' },
-		{ idx: 'A',  freq: 440.00 *2, label: 'A', pos: 0, fill: 0, view: null, m: 1, vid: 'a' },	
-		{ idx: 'A#', freq: 466.16 *2, label: 'A#/Bb', pos: 1, fill: 0, view: null, m: 1, vid: 'a_' },
-		{ idx: 'B',  freq: 493.88 *2, label: 'B', pos: 0, fill: 0, view: null, m: 1, vid: 'b' },
+		{ idx: 'C',  freq: 523.25 *1, label: 'C', pos: 0, fill: 0, view: null, vid: 'c' },
+		{ idx: 'C#', freq: 554.37 *1, label: 'C#/Db', pos: 1, fill: 0, view: null, vid: 'c_' },
+		{ idx: 'D',  freq: 587.33 *1, label: 'D', pos: 0, fill: 0, view: null, vid: 'd' },
+		{ idx: 'D#', freq: 622.25 *1, label: 'D#/Eb', pos: 1, fill: 0, view: null, vid: 'd_' },
+		{ idx: 'E',  freq: 659.25 *1, label: 'E', pos: 0, fill: 1, view: null, vid: 'e' },
+		{ idx: 'F',  freq: 698.46 *1, label: 'F', pos: 0, fill: 0, view: null, vid: 'f' },
+		{ idx: 'F#', freq: 739.99 *1, label: 'F#/Gb', pos: 1, fill: 0, view: null, vid: 'f_' },
+		{ idx: 'G',  freq: 783.99 *1, label: 'G', pos: 0, fill: 0, view: null, vid: 'g' },
+		{ idx: 'G#', freq: 830.61 *1, label: 'G#/Ab', pos: 1, fill: 0, view: null, vid: 'g_' },
+		{ idx: 'A',  freq: 440.00 *2, label: 'A', pos: 0, fill: 0, view: null, vid: 'a' },	
+		{ idx: 'A#', freq: 466.16 *2, label: 'A#/Bb', pos: 1, fill: 0, view: null, vid: 'a_' },
+		{ idx: 'B',  freq: 493.88 *2, label: 'B', pos: 0, fill: 0, view: null, vid: 'b' },
 	
-		{ idx: 'C',  freq: 523.25 *2, label: 'C', pos: 0, fill: 0, view: null, m: 1, vid: 'c2' }
+		{ idx: 'C',  freq: 523.25 *2, label: 'C', pos: 0, fill: 0, view: null, vid: 'c2' }
 	],
 
 	pressedKeyboardKeys: [],
 
 	drawWorkspace: function(){
 		CP.log('CP.drawWorkspace:', arguments);
+		// ----	
+		CP.drawBoard();
+		CP.keyLog.html(CP.multipl);
 	},
 
 	drawBoardTouch: function(){
@@ -62,9 +67,10 @@ var CP = {
 	},
 
 	play: function(){
+		CP.log('play:', arguments);
 
 		for(var idx in CP.pressedKeyboardKeys){
-			
+		
 			if(idx >= CP.maxSingleToneLen){ continue };
 
 			var m = CP.tonesKeyMap[CP.pressedKeyboardKeys[idx]];
@@ -75,22 +81,43 @@ var CP = {
 
 			if(null == CP.singleToneOscs[idx]){ continue; }
 
-			CP.singleToneOscs[idx].frequency.setValueAtTime(tone.freq, CP.audioNode.currentTime);
-			CP.singleToneOscs[idx].gainNode.gain.setValueAtTime(CP.singleToneDefGain, CP.audioNode.currentTime);
+			CP.singleToneOscs[idx].frequency.setValueAtTime(
+				tone.freq *CP.multipl, 
+				CP.audioNode.currentTime
+			);
+			CP.singleToneOscs[idx].gainNode.gain.setValueAtTime(
+				CP.singleToneDefGain, 
+				CP.audioNode.currentTime
+			);
 		}
 	},
 
-	shiftKeyPad: function(){
+	raiseMultipl: function(){
+		CP.log('shiftMultipl:', arguments);
+		
+		CP.multipl++;
+		CP.keyLog.html(CP.multipl);
+	},
 
+	lowerMultipl: function(){
+		CP.log('lowerMultipl:', arguments);
+		CP.multipl--;
+		if(CP.multipl <= 1){
+			CP.multipl = 1;
+		}
+		CP.keyLog.html(CP.multipl);
 	},
 
 	touch: function(){
-		CP.log(CP.pressedKeyboardKeys);
+		CP.log('touch:', CP.pressedKeyboardKeys);
+		
 		CP.drawBoardTouch();
 		CP.play();
 	},
 	
 	release: function(){
+		CP.log('release:', arguments);
+
 		for(var idx = 0; idx < CP.maxSingleToneLen; idx++){
 			CP.singleToneOscs[idx].gainNode.gain.setValueAtTime(0, CP.audioNode.currentTime);
     	};
@@ -118,9 +145,7 @@ var CP = {
 
 		jQuery(document.body).keydown(function(e){	
 			// console.log(e.keyCode);
-			if(Q == e.keyCode){
-				CP.shiftKeyPad();
-			}
+			// 
 			if(-1 == CP.pressedKeyboardKeys.indexOf(e.keyCode)){
 		    	CP.pressedKeyboardKeys.push(e.keyCode);
 			    CP.touch();
@@ -128,6 +153,10 @@ var CP = {
 		});
 
 		jQuery(document.body).keyup(function(e){
+		    // 
+		    if(_2 == e.keyCode){ CP.raiseMultipl(); };
+			if(_1 == e.keyCode){ CP.lowerMultipl(); };
+			// 
 		    CP.pressedKeyboardKeys.splice(CP.pressedKeyboardKeys.indexOf(e.keyCode), 1);
 			CP.release(); 
 		});
@@ -170,17 +199,20 @@ var CP = {
 		};
 	},
 
-	init: function(){
-		CP.log('CP.init', arguments);
-
+	initViews: function(){
 		CP.whites = jQuery('#whites');
 		CP.blacks = jQuery('#blacks');
 		CP.keyLog = jQuery('#keyLog');
 		CP.msgLog = jQuery('#msgLog');
+	},
 
+	init: function(){
+		CP.log('CP.init', arguments);
+		// ---
+		CP.initViews();
 		CP.initOscs();
 		CP.initKeys();
-		CP.drawBoard();
+		CP.drawWorkspace();
 	},
 
 	log: function(){
@@ -215,6 +247,8 @@ var A = 65,
 	O = 79,
 	E = 69,
 	K = 75,
+   _1 = 49,
+   _2 = 50,
 	Z = 90;
 
 // inits

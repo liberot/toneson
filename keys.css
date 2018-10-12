@@ -1,3 +1,11 @@
+#hint {
+	font-size: .55em;
+	font-family: Helvetica;
+	font-style: italic;
+	font-weight: bold;
+	padding-bottom: 1em;
+}
+
 #msgLog {
 	font-size: 2em;
 	font-family: Georgia;
