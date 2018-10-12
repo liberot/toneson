@@ -150,7 +150,7 @@ var CP = {
 				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' 		},
 				{ idx: 'G major', 		tones: [7, 11, 2], 	label: 'G major GBD' 		}, 
 				{ idx: 'A sus', 		tones: [5, 9, 2, 4],label: 'A sus FADE' 		},
-				{ idx: 'C major', 		tones: [0, 4, 7], 	label: 'C major CEG' 		},  
+				{ idx: 'C major', 		tones: [12, 4, 7], 	label: 'C major CEG' 		},  
 			]
 		}
 	],
