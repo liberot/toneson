@@ -161,7 +161,7 @@ var CP = {
 		CP.log('CP.initWorkspace():', arguments);
 		// ----	
 		CP.drawBoard();
-		CP.keyLog.html(CP.multipl);
+		CP.keyLog.html('Multiply: ' +CP.multipl);
 	},
 
 	drawBoardTouch: function(){
@@ -278,7 +278,7 @@ var CP = {
 			}
 		}
 
-		CP.pitchLog.html(CP.currentPitchLabel);
+		CP.pitchLog.html('Pitch: ' +CP.currentPitchLabel);
 	},
 
 	shiftPitch: function(){
@@ -291,7 +291,7 @@ var CP = {
 
 		CP.currentPitchLabel = CP.currentPitchTable[CP.currentPitchIdx];
 
-		CP.pitchLog.html(CP.currentPitchLabel);
+		CP.pitchLog.html('Pitch: ' +CP.currentPitchLabel);
 	},
 
 	raiseMultipl: function(){
@@ -304,7 +304,7 @@ var CP = {
 			CP.multipl++;
 		}
 		
-		CP.keyLog.html(CP.multipl);
+		CP.keyLog.html('Multiply: ' +CP.multipl);
 	},
 
 	lowerMultipl: function(){
@@ -317,7 +317,7 @@ var CP = {
 			CP.multipl /=2;
 		}
 		
-		CP.keyLog.html(CP.multipl);
+		CP.keyLog.html('Multiply: ' +CP.multipl);
 	},
 
 	resetOscs: function(){
