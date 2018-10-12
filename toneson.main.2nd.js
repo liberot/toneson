@@ -176,20 +176,30 @@ var CP = {
 		for(var idx in CP.pressedKeyboardKeys){
 			var m = CP.storedKeysMap[CP.pressedKeyboardKeys[idx]];
 
-			if(null == m){ continue; }
+			if(null == m){ 
+				continue; 
+			}
 
 			var chord = pitch.chords[m];
 			
-			if(null == chord){ continue};
-			if(null == chord.tones){ continue; }
+			if(null == chord){ 
+				continue
+			};
+
+			if(null == chord.tones){ 
+				continue; 
+			}
 			
 			for(var i in chord.tones){
 				
 				var tone = CP.tones[chord.tones[i]];
-				if(null == tone){ continue; }
+				if(null == tone){ 
+					continue; 
+				}
 
 				CP.multiToneOscs[i].frequency.setValueAtTime(
-					tone.freq *CP.multipl, 
+					// tone.freq *CP.multipl, 
+					tone.freq, 
 					CP.audioNode.currentTime
 				);
 
@@ -208,15 +218,23 @@ var CP = {
 
 		for(var idx in CP.pressedKeyboardKeys){
 		
-			if(idx >= CP.maxSingleToneLen){ return };
+			if(idx >= CP.maxSingleToneLen){ 
+				return 
+			};
 
 			var m = CP.tonesKeyMap[CP.pressedKeyboardKeys[idx]];
-			if(null == m){ continue; }
+			if(null == m){ 
+				continue; 
+			}
 
 			var tone = CP.tones[m]; 
-			if(null == tone){ continue; }
+			if(null == tone){ 
+				continue; 
+			}
 
-			if(null == CP.singleToneOscs[idx]){ continue; }
+			if(null == CP.singleToneOscs[idx]){ 
+				continue; 
+			}
 
 			CP.singleToneOscs[idx].frequency.setValueAtTime(
 				tone.freq *CP.multipl, 
@@ -232,7 +250,6 @@ var CP = {
 	setCurrentPitch: function(){
 		CP.log('CP.setCurrentPitch():', arguments);
 
-		var pidx = 0;
 		for(var idx in CP.currentPitchTable){
 			if(arguments[0] == CP.currentPitchTable[idx]){
 				CP.currentPitchLabel = CP.currentPitchTable[idx];
