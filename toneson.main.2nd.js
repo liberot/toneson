@@ -174,7 +174,7 @@ var CP = {
 				if(null != CP.tones[m]){
 					if(null != CP.tones[m].view){
 						CP.tones[m].view.removeClass('released').addClass('touched');
-						CP.outBuf += CP.tones[m].idx +'   ';
+						CP.outBuf += CP.tones[m].idx +' ' +CP.tones[m].freq + ' ::: ';
 					}
 				}
 			}

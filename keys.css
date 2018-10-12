@@ -7,7 +7,7 @@
 }
 
 #taskLog {
-	font-size: .62em;
+	font-size: .63em;
 	font-family: Georgia;
 	font-style: italic;
 	background-color: #D66C6D;
@@ -16,7 +16,7 @@
 }
 
 #pitchLog {
-	font-size: .62em;
+	font-size: .63em;
 	font-family: Georgia;
 	font-style: italic;
 	background-color: #666666;
@@ -25,7 +25,7 @@
 }
 
 #chordLog {
-	font-size: .62em;
+	font-size: .63em;
 	font-family: Georgia;
 	font-style: italic;
 	background-color: #DDDDFF;
@@ -35,22 +35,22 @@
 }
 
 #toneLog {
-	font-size: 2em;
+	font-size: 1.23em;
 	font-family: Georgia;
 	background-color: #e6ffb3;
-	height: 2em;
 	padding: 1em;
+	height: 1em;
 }
 
 #keyLog {
-	font-size: .62em;
+	font-size: .63em;
 	font-family: Georgia;
 	font-style: italic;
 	padding: 1em;
 }
 
 #idx {
-	font-size: .75em;
+	font-size: .73em;
 	font-family: Arial;
 	padding-bottom: 1em;
 }
@@ -67,17 +67,12 @@
 	margin-right: 1px
 }
 
-#darks {
-	position: relative;
-	left: -210px;
-}
-
 #blacks {
 	position: relative;
 	left: -240px;
 }
 
-#blacks div, #darks div{
+#blacks div {
 	float: left;
 	background-color: #cccccc;
 	width: 31px;
@@ -85,12 +80,12 @@
 	margin-right: 1px;
 }
 
-#blacks .dark, #darks .dark {
+#blacks .dark {
 	height: 85px !important;
 	background-color: #000000 !important;
 }
 
-#blacks .hidden, #darks .hidden {
+#blacks .hidden {
 	opacity: 0;
 }
 
