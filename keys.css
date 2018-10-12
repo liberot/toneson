@@ -6,18 +6,28 @@
 	padding-bottom: 1em;
 }
 
+#pitchLog {
+	font-size: .62em;
+	font-family: Georgia;
+	font-style: italic;
+	background-color: #666666;
+	color: #ffffff;
+	padding: 1em;
+}
+
 #msgLog {
 	font-size: 2em;
 	font-family: Georgia;
 	background-color: #e6ffb3;
-	height: 3em;
+	height: 2em;
+	padding: 1em;
 }
 
 #keyLog {
 	font-size: .75em;
 	font-family: Georgia;
 	font-style: italic;
-	padding-bottom: 1em;
+	padding: 1em;
 }
 
 #idx {

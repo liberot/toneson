@@ -31,6 +31,18 @@ var CP = {
 
 	outBuf: '',
 
+	currentPitch: '',
+	pitchIdx: 0,
+	pitches: [
+		'C major',
+		'D major',
+		'E major',
+		'F major',
+		'G major',
+		'A major',
+		'B major'
+	],
+	
 	tones: [
 		{ idx: 'C',  freq: 523.25 *1, label: 'C', pos: 0, fill: 0, view: null, vid: 'c1' },      // 0 C
 		{ idx: 'C#', freq: 554.37 *1, label: 'C#/Db', pos: 1, fill: 0, view: null, vid: 'c1+' }, // 1
@@ -53,7 +65,7 @@ var CP = {
 		{ idx: 'D minor', tones: [2, 7, 9] },   // DFA
 		{ idx: 'E minor', tones: [4, 7, 11] },  // EGB
 		{ idx: 'F major', tones: [5, 9, 12] },  // FAC
-		{ idx: 'G major', tones: [8, 11, 2] }, // GBD
+		{ idx: 'G major', tones: [8, 11, 2] },  // GBD
 		{ idx: 'A minor', tones: [9, 12, 4] },  // ACE
 		{ idx: 'B diminished', tones: [12, 2, 5] },  // BDF
 	],
@@ -140,6 +152,34 @@ var CP = {
 		}
 	},
 
+	setCurrentPitch: function(){
+		CP.log('CP.setCurrentPitch():', arguments);
+
+		var pidx = 0;
+		for(var idx in CP.pitches){
+			if(arguments[0] == CP.pitches[idx]){
+				CP.currentPitch = CP.pitches[idx];
+				CP.pitchIdx = idx;
+			}
+		}
+
+		CP.pitchLog.html(CP.currentPitch);
+	},
+
+	shiftPitch: function(){
+		CP.log('CP.shiftPitch():', arguments);
+
+		CP.pitchIdx++;
+		if(CP.pitchIdx >= CP.pitches.length){
+			CP.pitchIdx = 0;
+		}
+
+		CP.currentPitch = CP.pitches[CP.pitchIdx];
+		console.log(CP.currentPitch);
+
+		CP.pitchLog.html(CP.currentPitch);
+	},
+
 	raiseMultipl: function(){
 		CP.log('CP.shiftMultipl():', arguments);
 		if(CP.multipl <= 1){
@@ -163,7 +203,7 @@ var CP = {
 
 	touch: function(){
 		CP.log('CP.touch():', CP.pressedKeyboardKeys);
-		
+		// ----
 		CP.drawBoardTouch();
 		CP.playStoredTones();
 		CP.playSingleTone();
@@ -178,15 +218,13 @@ var CP = {
 
     	for(var idx = 0; idx < CP.maxChordTonesLen; idx++){
     		CP.multiToneOscs[idx].gainNode.gain.setValueAtTime(0, CP.audioNode.currentTime);
-		}
+		};
 		
     	for(var idx in CP.tones){
     		CP.tones[idx].view.removeClass('touched').addClass('released');	
     	};
 
     	CP.msgLog.html('');
-   
-
    },
 
    initKeys: function(){
@@ -215,7 +253,6 @@ var CP = {
 		CP.storedKeysMap[N] = 5; // A minor
 		CP.storedKeysMap[M] = 6; // B diminished
 
-
 		jQuery(document.body).keydown(function(e){	
 			// console.log(e.keyCode);
 			// 
@@ -226,7 +263,8 @@ var CP = {
 		});
 
 		jQuery(document.body).keyup(function(e){
-		    // 
+		    // console.log(e.keyCode);
+		    //  
 		    switch(e.keyCode){
 		    	case _1:
 		    		CP.lowerMultipl();
@@ -236,6 +274,9 @@ var CP = {
 		    		break;
 		    	case _3:
 		    		CP.tasker.toggle();
+		    		break;
+		    	case _4:
+		    		CP.shiftPitch();
 		    		break;
 		    }
 		    // 
@@ -341,6 +382,7 @@ var CP = {
 		CP.blacks = jQuery('#blacks');
 		CP.keyLog = jQuery('#keyLog');
 		CP.msgLog = jQuery('#msgLog');
+		CP.pitchLog = jQuery('#pitchLog');
 	},
 
 	init: function(){
@@ -351,6 +393,8 @@ var CP = {
 		CP.initMultiToneOscs();
 		CP.initKeys();
 		CP.drawWorkspace();
+
+		CP.setCurrentPitch('C major');
 	},
 
 	log: function(){
@@ -388,6 +432,7 @@ var A = 65,
    _1 = 49,
    _2 = 50,
    _3 = 51,
+   _4 = 52,
 	Z = 90;
 
 // inits
