@@ -65,13 +65,13 @@ var CP = {
 	pitches: [
 		{ idx: 'C major', 
 			chords: [
-				{ idx: 'C major', tones: [0, 4, 7], label: 'C major CEG' },   // CEG
-				{ idx: 'D minor', tones: [2, 7, 9], label: 'D minor DFA' },   // DFA
-				{ idx: 'E minor', tones: [4, 7, 11], label: 'E minor EGB' },  // EGB
-				{ idx: 'F major', tones: [5, 9, 12], label: 'F major FAC' },  // FAC
-				{ idx: 'G major', tones: [8, 11, 2], label: 'G major GBD' },  // GBD
-				{ idx: 'A minor', tones: [9, 12, 4], label: 'A minor ACE' },  // ACE
-				{ idx: 'B diminished', tones: [12, 2, 5], label: 'B diminished BDF' }  // BDF
+				{ idx: 'C major', tones: [0, 4, 7], label: 'C major CEG' }, 
+				{ idx: 'D minor', tones: [2, 7, 9], label: 'D minor DFA' }, 
+				{ idx: 'E minor', tones: [4, 7, 11], label: 'E minor EGB' },
+				{ idx: 'F major', tones: [5, 9, 12], label: 'F major FAC' }, 
+				{ idx: 'G major', tones: [8, 11, 2], label: 'G major GBD' }, 
+				{ idx: 'A minor', tones: [9, 12, 4], label: 'A minor ACE' }, 
+				{ idx: 'B diminished', tones: [12, 2, 5], label: 'B diminished BDF' }  
 			]
 		},
 		{ idx: 'D major', 
@@ -252,6 +252,7 @@ var CP = {
    initKeys: function(){
    		CP.log('CP.initKeys():', arguments);
 
+   		// single keys
    		CP.tonesKeyMap[A] =  0; // C
 		CP.tonesKeyMap[W] =  1; // C#
 		CP.tonesKeyMap[S] =  2; // D
@@ -266,18 +267,17 @@ var CP = {
 		CP.tonesKeyMap[J] = 11; // B
 		CP.tonesKeyMap[K] = 12; // C
 
-		// as in c major
-		CP.storedKeysMap[Y] = 0; // C major
-		CP.storedKeysMap[X] = 1; // D minor
-		CP.storedKeysMap[C] = 2; // E minor
-		CP.storedKeysMap[V] = 3; // F major
-		CP.storedKeysMap[B] = 4; // G major
-		CP.storedKeysMap[N] = 5; // A minor
-		CP.storedKeysMap[M] = 6; // B diminished
+		// multi keys
+		CP.storedKeysMap[Y] = 0; 
+		CP.storedKeysMap[X] = 1; 
+		CP.storedKeysMap[C] = 2; 
+		CP.storedKeysMap[V] = 3; 
+		CP.storedKeysMap[B] = 4; 
+		CP.storedKeysMap[N] = 5; 
+		CP.storedKeysMap[M] = 6; 
 
 		jQuery(document.body).keydown(function(e){	
 			// console.log(e.keyCode);
-			// 
 			if(-1 == CP.pressedKeyboardKeys.indexOf(e.keyCode)){
 		    	CP.pressedKeyboardKeys.push(e.keyCode);
 			    CP.touch();
@@ -286,24 +286,29 @@ var CP = {
 
 		jQuery(document.body).keyup(function(e){
 		    // console.log(e.keyCode);
-		    //  
 		    switch(e.keyCode){
+		    	
 		    	case _1:
 		    		CP.lowerMultipl();
 		    		break;
+		    	
 		    	case _2:
 		    		CP.raiseMultipl();
 		    		break;
+		    	
 		    	case _3:
 		    		CP.tasker.toggle();
 		    		break;
+		    	
 		    	case _4:
 		    		CP.shiftPitch();
 		    		break;
+		    	
+		    	default: 
+		    	    CP.pressedKeyboardKeys.splice(CP.pressedKeyboardKeys.indexOf(e.keyCode), 1);
+					CP.release(); 
+					break;
 		    }
-		    // 
-		    CP.pressedKeyboardKeys.splice(CP.pressedKeyboardKeys.indexOf(e.keyCode), 1);
-			CP.release(); 
 		});
 	},
 
