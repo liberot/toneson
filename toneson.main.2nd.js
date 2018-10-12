@@ -22,29 +22,30 @@ var CP = {
 
 	multipl: 1,
 
+	tasker: null, 
+
 	outBuf: '',
 
 	tones: [
-		{ idx: 'C',  freq: 523.25 *1, label: 'C', pos: 0, fill: 0, view: null, vid: 'c' },
-		{ idx: 'C#', freq: 554.37 *1, label: 'C#/Db', pos: 1, fill: 0, view: null, vid: 'c_' },
-		{ idx: 'D',  freq: 587.33 *1, label: 'D', pos: 0, fill: 0, view: null, vid: 'd' },
-		{ idx: 'D#', freq: 622.25 *1, label: 'D#/Eb', pos: 1, fill: 0, view: null, vid: 'd_' },
-		{ idx: 'E',  freq: 659.25 *1, label: 'E', pos: 0, fill: 1, view: null, vid: 'e' },
-		{ idx: 'F',  freq: 698.46 *1, label: 'F', pos: 0, fill: 0, view: null, vid: 'f' },
-		{ idx: 'F#', freq: 739.99 *1, label: 'F#/Gb', pos: 1, fill: 0, view: null, vid: 'f_' },
-		{ idx: 'G',  freq: 783.99 *1, label: 'G', pos: 0, fill: 0, view: null, vid: 'g' },
-		{ idx: 'G#', freq: 830.61 *1, label: 'G#/Ab', pos: 1, fill: 0, view: null, vid: 'g_' },
-		{ idx: 'A',  freq: 440.00 *2, label: 'A', pos: 0, fill: 0, view: null, vid: 'a' },	
-		{ idx: 'A#', freq: 466.16 *2, label: 'A#/Bb', pos: 1, fill: 0, view: null, vid: 'a_' },
-		{ idx: 'B',  freq: 493.88 *2, label: 'B', pos: 0, fill: 0, view: null, vid: 'b' },
-	
+		{ idx: 'C',  freq: 523.25 *1, label: 'C', pos: 0, fill: 0, view: null, vid: 'c1' },
+		{ idx: 'C#', freq: 554.37 *1, label: 'C#/Db', pos: 1, fill: 0, view: null, vid: 'c1+' },
+		{ idx: 'D',  freq: 587.33 *1, label: 'D', pos: 0, fill: 0, view: null, vid: 'd1' },
+		{ idx: 'D#', freq: 622.25 *1, label: 'D#/Eb', pos: 1, fill: 0, view: null, vid: 'd1+' },
+		{ idx: 'E',  freq: 659.25 *1, label: 'E', pos: 0, fill: 1, view: null, vid: 'e1' },
+		{ idx: 'F',  freq: 698.46 *1, label: 'F', pos: 0, fill: 0, view: null, vid: 'f1' },
+		{ idx: 'F#', freq: 739.99 *1, label: 'F#/Gb', pos: 1, fill: 0, view: null, vid: 'f1+' },
+		{ idx: 'G',  freq: 783.99 *1, label: 'G', pos: 0, fill: 0, view: null, vid: 'g1' },
+		{ idx: 'G#', freq: 830.61 *1, label: 'G#/Ab', pos: 1, fill: 0, view: null, vid: 'g1+' },
+		{ idx: 'A',  freq: 440.00 *2, label: 'A', pos: 0, fill: 0, view: null, vid: 'a1' },	
+		{ idx: 'A#', freq: 466.16 *2, label: 'A#/Bb', pos: 1, fill: 0, view: null, vid: 'a1+' },
+		{ idx: 'B',  freq: 493.88 *2, label: 'B', pos: 0, fill: 0, view: null, vid: 'b1' },
 		{ idx: 'C',  freq: 523.25 *2, label: 'C', pos: 0, fill: 0, view: null, vid: 'c2' }
 	],
 
 	pressedKeyboardKeys: [],
 
 	drawWorkspace: function(){
-		CP.log('CP.drawWorkspace:', arguments);
+		CP.log('CP.drawWorkspace():', arguments);
 		// ----	
 		CP.drawBoard();
 		CP.keyLog.html(CP.multipl);
@@ -67,7 +68,7 @@ var CP = {
 	},
 
 	play: function(){
-		CP.log('play:', arguments);
+		CP.log('CP.play():', arguments);
 
 		for(var idx in CP.pressedKeyboardKeys){
 		
@@ -93,7 +94,7 @@ var CP = {
 	},
 
 	raiseMultipl: function(){
-		CP.log('shiftMultipl:', arguments);
+		CP.log('CP.shiftMultipl():', arguments);
 		if(CP.multipl <= 1){
 			CP.multipl *=2;
 		}
@@ -104,7 +105,7 @@ var CP = {
 	},
 
 	lowerMultipl: function(){
-		CP.log('lowerMultipl:', arguments);
+		CP.log('CP.lowerMultipl():', arguments);
 		CP.multipl--;
 		if(CP.multipl <= 1){
 			CP.multipl = 1;
@@ -114,14 +115,14 @@ var CP = {
 	},
 
 	touch: function(){
-		CP.log('touch:', CP.pressedKeyboardKeys);
+		CP.log('CP.touch():', CP.pressedKeyboardKeys);
 		
 		CP.drawBoardTouch();
 		CP.play();
 	},
 	
 	release: function(){
-		CP.log('release:', arguments);
+		CP.log('CP.release():', arguments);
 
 		for(var idx = 0; idx < CP.maxSingleToneLen; idx++){
 			CP.singleToneOscs[idx].gainNode.gain.setValueAtTime(0, CP.audioNode.currentTime);
@@ -159,15 +160,63 @@ var CP = {
 
 		jQuery(document.body).keyup(function(e){
 		    // 
-		    if(_2 == e.keyCode){ CP.raiseMultipl(); };
-			if(_1 == e.keyCode){ CP.lowerMultipl(); };
-			// 
+		    switch(e.keyCode){
+		    	case _1:
+		    		CP.lowerMultipl();
+		    		break;
+		    	case _2:
+		    		CP.raiseMultipl();
+		    		break;
+		    	case _3:
+		    		CP.tasker.toggle();
+		    		break;
+		    }
+		    // 
 		    CP.pressedKeyboardKeys.splice(CP.pressedKeyboardKeys.indexOf(e.keyCode), 1);
 			CP.release(); 
 		});
 	},
 
-	initOscs: function(){
+	tasker: {
+		INTERVAL: 1000,
+		STATE_SUSPENDED: 0x00,
+		STATE_RUNNING: 0x01,
+		state: 0x00,
+		thread: null,
+		toggle: function(){
+			switch(CP.tasker.state){
+				case CP.tasker.STATE_SUSPENDED:
+					CP.tasker.start();
+					break;
+				case CP.tasker.STATE_RUNNING: 
+					CP.tasker.suspend();
+					break;
+			}
+		},
+		start: function(){
+			CP.log('CP.takser.start():', arguments);
+			CP.tasker.suspend();
+			CP.tasker.state = CP.tasker.STATE_RUNNING;
+			CP.tasker.run();
+		},
+		suspend: function(){
+			CP.log('CP.tasker.suspend():', arguments);
+			CP.tasker.state = CP.tasker.STATE_SUSPENDED;
+			clearInterval(CP.tasker.thread);
+			CP.tasker.thread = null;
+		},
+		run: function(){
+			CP.log('CP.tasker.run():', arguments);		
+			if(CP.tasker.isLooping()){
+				CP.tasker.thread = setInterval(CP.tasker.start, CP.tasker.INTERVAL);
+			}
+		},
+	 	isLooping: function(){
+			return CP.tasker.STATE_RUNNING == CP.tasker.state ? true : false;
+		}
+	},
+
+	initSingleToneOscs: function(){
 		CP.audioContext = window.AudioContext || window.webkitAudioContext;
 		CP.audioNode = new AudioContext();
 
@@ -183,7 +232,7 @@ var CP = {
 	},
 
 	drawBoard: function(){
-		CP.log('drawBoard:', arguments);
+		CP.log('CP.drawBoard():', arguments);
 
 		for(var idx in CP.tones){
 			var vid = CP.tones[idx].vid;
@@ -212,10 +261,10 @@ var CP = {
 	},
 
 	init: function(){
-		CP.log('CP.init', arguments);
+		CP.log('CP.init():', arguments);
 		// ---
 		CP.initViews();
-		CP.initOscs();
+		CP.initSingleToneOscs();
 		CP.initKeys();
 		CP.drawWorkspace();
 	},
@@ -254,6 +303,7 @@ var A = 65,
 	K = 75,
    _1 = 49,
    _2 = 50,
+   _3 = 51,
 	Z = 90;
 
 // inits
