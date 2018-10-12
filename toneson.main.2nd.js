@@ -11,6 +11,7 @@ var CP = {
 	toneLog: null,
 	pitchLog: null,
 	chordLog: null,
+	taskLog: null,
 
 	whites: null,
 	blacks: null,
@@ -156,8 +157,8 @@ var CP = {
 		}
 	],
 
-	drawWorkspace: function(){
-		CP.log('CP.drawWorkspace():', arguments);
+	initWorkspace: function(){
+		CP.log('CP.initWorkspace():', arguments);
 		// ----	
 		CP.drawBoard();
 		CP.keyLog.html(CP.multipl);
@@ -311,7 +312,7 @@ var CP = {
 		
 		CP.multipl--;
 		
-		if(CP.multipl <= 1){
+		if(CP.multipl  < 1){
 			CP.multipl = 1;
 			CP.multipl /=2;
 		}
@@ -419,7 +420,7 @@ var CP = {
 	},
 
 	tasker: {
-		INTERVAL: 1000,
+		INTERVAL: 25,
 		STATE_SUSPENDED: 0x00,
 		STATE_RUNNING: 0x01,
 		state: 0x00,
@@ -435,19 +436,21 @@ var CP = {
 			}
 		},
 		start: function(){
-			CP.log('CP.takser.start():', arguments);
+			// CP.log('CP.takser.start():', arguments);
 			CP.tasker.suspend();
 			CP.tasker.state = CP.tasker.STATE_RUNNING;
 			CP.tasker.run();
 		},
 		suspend: function(){
-			CP.log('CP.tasker.suspend():', arguments);
+			// CP.log('CP.tasker.suspend():', arguments);
 			CP.tasker.state = CP.tasker.STATE_SUSPENDED;
 			clearInterval(CP.tasker.thread);
 			CP.tasker.thread = null;
+			CP.taskLog.html('Suspended: ' +(new Date().getTime()));
 		},
 		run: function(){
-			CP.log('CP.tasker.run():', arguments);		
+			// CP.log('CP.tasker.run():', arguments);		
+			CP.taskLog.html('Running: ' +(new Date().getTime()));
 			if(CP.tasker.isLooping()){
 				CP.tasker.thread = setInterval(CP.tasker.start, CP.tasker.INTERVAL);
 			}
@@ -522,6 +525,7 @@ var CP = {
 		CP.toneLog = jQuery('#toneLog');
 		CP.pitchLog = jQuery('#pitchLog');
 		CP.chordLog = jQuery('#chordLog');
+		CP.taskLog = jQuery('#taskLog');
 	},
 
 	init: function(){
@@ -531,9 +535,11 @@ var CP = {
 		CP.initSingleToneOscs();
 		CP.initMultiToneOscs();
 		CP.initKeys();
-		CP.drawWorkspace();
+		CP.initWorkspace();
 
 		CP.setCurrentPitch('C major');
+
+		CP.tasker.start();
 	},
 
 	log: function(){

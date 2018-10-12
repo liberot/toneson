@@ -6,6 +6,15 @@
 	padding-bottom: 1em;
 }
 
+#taskLog {
+	font-size: .62em;
+	font-family: Georgia;
+	font-style: italic;
+	background-color: #166C6D;
+	color: #ffffff;
+	padding: 1em;
+}
+
 #pitchLog {
 	font-size: .62em;
 	font-family: Georgia;
