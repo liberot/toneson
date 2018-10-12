@@ -65,24 +65,46 @@ var CP = {
 	pitches: [
 		{ idx: 'C major', 
 			chords: [
-				{ idx: 'C major', tones: [0, 4, 7], label: 'C major CEG' }, 
-				{ idx: 'D minor', tones: [2, 7, 9], label: 'D minor DFA' }, 
-				{ idx: 'E minor', tones: [4, 7, 11], label: 'E minor EGB' },
-				{ idx: 'F major', tones: [5, 9, 12], label: 'F major FAC' }, 
-				{ idx: 'G major', tones: [8, 11, 2], label: 'G major GBD' }, 
-				{ idx: 'A minor', tones: [9, 12, 4], label: 'A minor ACE' }, 
-				{ idx: 'B diminished', tones: [12, 2, 5], label: 'B diminished BDF' }  
+				{ idx: 'C major', 		tones: [0, 4, 7], 	label: 'C major CEG' }, 
+				{ idx: 'D minor', 		tones: [2, 7, 9], 	label: 'D minor DFA' }, 
+				{ idx: 'E minor', 		tones: [4, 7, 11], 	label: 'E minor EGB' },
+				{ idx: 'F major', 		tones: [5, 9, 12],	label: 'F major FAC' }, 
+				{ idx: 'G major', 		tones: [8, 11, 2], 	label: 'G major GBD' }, 
+				{ idx: 'A minor', 		tones: [9, 12, 4], 	label: 'A minor ACE' }, 
+				{ idx: 'B diminished', 	tones: [12, 2, 5], 	label: 'B diminished BDF' }  
 			]
 		},
 		{ idx: 'D major', 
 			chords: [
-				{ idx: 'D major', tones: [2, 6, 9], label: 'D major DF#A' },   
-				{ idx: 'E minor', tones: [4, 7, 11], label: 'E minor EGB' }, 
-				{ idx: 'F# minor', tones: [6, 9, 1], label: 'F# minor F#AC#' }, 
-				{ idx: 'G major', tones: [8, 11, 2], label: 'G major GBD' },
-				{ idx: 'A major', tones: [9, 1, 4], label: 'A major AC#E' },  
-				{ idx: 'B minor', tones: [11, 2, 6], label: 'B minor BDF#' }, 
-				{ idx: 'C# diminished', tones: [1, 4, 7], label: 'C# diminished C#EG' }  
+				{ idx: 'D major', 		tones: [2, 6, 9], 	label: 'D major DF#A' },   
+				{ idx: 'E minor', 		tones: [4, 7, 11], 	label: 'E minor EGB' }, 
+				{ idx: 'F# minor', 		tones: [6, 9, 1], 	label: 'F# minor F#AC#' }, 
+				{ idx: 'G major', 		tones: [8, 11, 2], 	label: 'G major GBD' },
+				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' },  
+				{ idx: 'B minor', 		tones: [11, 2, 6], 	label: 'B minor BDF#' }, 
+				{ idx: 'C# diminished', tones: [1, 4, 7], 	label: 'C# diminished C#EG' }  
+			]
+		},
+		{ idx: 'E major', 
+			chords: [
+				{ idx: 'E major', 		tones: [4, 8, 11], 	label: 'E major EG#B' },   
+				{ idx: 'F# minor', 		tones: [6, 9, 1], 	label: 'F# minor F#AC#' }, 
+				{ idx: 'G# minor', 		tones: [8, 11, 3], 	label: 'G# minor G#BD#' }, 
+				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' },  
+				{ idx: 'B major', 		tones: [8, 11, 2], 	label: 'B major GBD' },
+				{ idx: 'C minor', 		tones: [1, 4, 8], 	label: 'C minor C#EG#' },
+				{ idx: 'D# diminished', tones: [3, 6, 9], 	label: 'D# diminished D#F#A' }  
+			]
+		},
+		{ idx: 'F major', 
+			chords: [
+				{ idx: 'F major', 		tones: [5, 9, 12], 	label: 'F major FAC' },   
+				{ idx: 'G minor', 		tones: [7, 10, 2], 	label: 'G minor GBbD' }, 
+				{ idx: 'A minor', 		tones: [9, 12, 4], 	label: 'A minor ACE' }, 
+				{ idx: 'Bb major', 		tones: [10, 2, 5], 	label: 'Bb major BbDF' },  
+				{ idx: 'C major', 		tones: [0, 4, 7], 	label: 'C major CEG' },
+				{ idx: 'D minor', 		tones: [2, 5, 9], 	label: 'D minor DFA' },
+				{ idx: 'E diminished', 	tones: [4, 7, 11], 	label: 'E diminished EGBb' }  
 			]
 		}
 	],
