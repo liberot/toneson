@@ -184,8 +184,8 @@ var CP = {
 	playStoredTones: function(){
 		CP.log('CP.playStoredTones():', arguments);
 		
-		var pitch = CP.pitches[CP.currentPitchIdx];
-		if(null == pitch){ 
+		var currentPitch = CP.pitches[CP.currentPitchIdx];
+		if(null == currentPitch){ 
 			return; 
 		}
 
@@ -196,7 +196,7 @@ var CP = {
 				continue; 
 			}
 
-			var chord = pitch.chords[m];
+			var chord = currentPitch.chords[m];
 			
 			if(null == chord){ 
 				continue
