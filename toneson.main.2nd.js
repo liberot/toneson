@@ -50,19 +50,19 @@ var CP = {
 	],
 	
 	tones: [
-		{ idx: 'C',  freq: 523.25 *1, label: 'C', 		pos: 0, fill: 0, view: null, vid: 'c1'  },      // 0 C
-		{ idx: 'C#', freq: 554.37 *1, label: 'C#/Db', 	pos: 1, fill: 0, view: null, vid: 'c1+' }, // 1
-		{ idx: 'D',  freq: 587.33 *1, label: 'D', 		pos: 0, fill: 0, view: null, vid: 'd1'  },      // 2 D
-		{ idx: 'D#', freq: 622.25 *1, label: 'D#/Eb', 	pos: 1, fill: 0, view: null, vid: 'd1+' }, // 3
-		{ idx: 'E',  freq: 659.25 *1, label: 'E', 		pos: 0, fill: 1, view: null, vid: 'e1'  },      // 4 E
-		{ idx: 'F',  freq: 698.46 *1, label: 'F', 		pos: 0, fill: 0, view: null, vid: 'f1'  },      // 5 F
-		{ idx: 'F#', freq: 739.99 *1, label: 'F#/Gb', 	pos: 1, fill: 0, view: null, vid: 'f1+' }, // 6
-		{ idx: 'G',  freq: 783.99 *1, label: 'G', 		pos: 0, fill: 0, view: null, vid: 'g1'  },      // 7 G
-		{ idx: 'G#', freq: 830.61 *1, label: 'G#/Ab', 	pos: 1, fill: 0, view: null, vid: 'g1+' }, // 8
-		{ idx: 'A',  freq: 440.00 *2, label: 'A', 		pos: 0, fill: 0, view: null, vid: 'a1'  },	     // 9 A
-		{ idx: 'A#', freq: 466.16 *2, label: 'A#/Bb',	pos: 1, fill: 0, view: null, vid: 'a1+' }, // 10
-		{ idx: 'B',  freq: 493.88 *2, label: 'B', 		pos: 0, fill: 0, view: null, vid: 'b1'  },      // 11 B
-		{ idx: 'C',  freq: 523.25 *2, label: 'C', 		pos: 0, fill: 0, view: null, vid: 'c2'  }       // 12 C
+		{ idx: 'C',  freq: 523.25 *1, label: 'C', 		pos: 0, fill: 0, view: null, vid: 'c1'  },
+		{ idx: 'C#', freq: 554.37 *1, label: 'C#/Db', 	pos: 1, fill: 0, view: null, vid: 'c1+' },
+		{ idx: 'D',  freq: 587.33 *1, label: 'D', 		pos: 0, fill: 0, view: null, vid: 'd1'  },
+		{ idx: 'D#', freq: 622.25 *1, label: 'D#/Eb', 	pos: 1, fill: 0, view: null, vid: 'd1+' },
+		{ idx: 'E',  freq: 659.25 *1, label: 'E', 		pos: 0, fill: 1, view: null, vid: 'e1'  },
+		{ idx: 'F',  freq: 698.46 *1, label: 'F', 		pos: 0, fill: 0, view: null, vid: 'f1'  },
+		{ idx: 'F#', freq: 739.99 *1, label: 'F#/Gb', 	pos: 1, fill: 0, view: null, vid: 'f1+' },
+		{ idx: 'G',  freq: 783.99 *1, label: 'G', 		pos: 0, fill: 0, view: null, vid: 'g1'  },
+		{ idx: 'G#', freq: 830.61 *1, label: 'G#/Ab', 	pos: 1, fill: 0, view: null, vid: 'g1+' },
+		{ idx: 'A',  freq: 440.00 *2, label: 'A', 		pos: 0, fill: 0, view: null, vid: 'a1'  },
+		{ idx: 'A#', freq: 466.16 *2, label: 'A#/Bb',	pos: 1, fill: 0, view: null, vid: 'a1+' },
+		{ idx: 'B',  freq: 493.88 *2, label: 'B', 		pos: 0, fill: 0, view: null, vid: 'b1'  },
+		{ idx: 'C',  freq: 523.25 *2, label: 'C', 		pos: 0, fill: 0, view: null, vid: 'c2'  }
 	],
 
 	pitches: [
@@ -161,7 +161,7 @@ var CP = {
 		CP.log('CP.initWorkspace():', arguments);
 		// ----	
 		CP.drawBoard();
-		CP.keyLog.html('Multiply: ' +CP.multipl);
+		CP.keyLog.html(__('Multiply') +': ' +CP.multipl);
 	},
 
 	drawBoardTouch: function(){
@@ -174,7 +174,7 @@ var CP = {
 				if(null != CP.tones[m]){
 					if(null != CP.tones[m].view){
 						CP.tones[m].view.removeClass('released').addClass('touched');
-						CP.outBuf += CP.tones[m].idx +' ' +CP.tones[m].freq + ' ::: ';
+						CP.outBuf += CP.tones[m].idx +'&nbsp;' +CP.tones[m].freq + '&nbsp;&nbsp;&nbsp;';
 					}
 				}
 			}
@@ -230,7 +230,7 @@ var CP = {
 				tone.view.addClass('storetouched');	
     		};
 
-    		CP.chordLog.html(chord.label);
+    		CP.chordLog.html(__(chord.label));
 		}
 	},
 
@@ -261,6 +261,7 @@ var CP = {
 				tone.freq *CP.multipl, 
 				CP.audioNode.currentTime
 			);
+
 			CP.singleToneOscs[idx].gainNode.gain.setValueAtTime(
 				CP.singleToneDefGain, 
 				CP.audioNode.currentTime
@@ -278,7 +279,7 @@ var CP = {
 			}
 		}
 
-		CP.pitchLog.html('Pitch: ' +CP.currentPitchLabel);
+		CP.pitchLog.html(__('Pitch') +': ' +CP.currentPitchLabel);
 	},
 
 	shiftPitch: function(){
@@ -291,7 +292,7 @@ var CP = {
 
 		CP.currentPitchLabel = CP.currentPitchTable[CP.currentPitchIdx];
 
-		CP.pitchLog.html('Pitch: ' +CP.currentPitchLabel);
+		CP.pitchLog.html(__('Pitch') +': ' +CP.currentPitchLabel);
 	},
 
 	raiseMultipl: function(){
@@ -304,7 +305,7 @@ var CP = {
 			CP.multipl++;
 		}
 		
-		CP.keyLog.html('Multiply: ' +CP.multipl);
+		CP.keyLog.html(__('Multiply') +': ' +CP.multipl);
 	},
 
 	lowerMultipl: function(){
@@ -317,7 +318,7 @@ var CP = {
 			CP.multipl /=2;
 		}
 		
-		CP.keyLog.html('Multiply: ' +CP.multipl);
+		CP.keyLog.html(__('Multiply') +': ' +CP.multipl);
 	},
 
 	resetOscs: function(){
@@ -446,11 +447,11 @@ var CP = {
 			CP.tasker.state = CP.tasker.STATE_SUSPENDED;
 			clearInterval(CP.tasker.thread);
 			CP.tasker.thread = null;
-			CP.taskLog.html('Suspended: ' +(new Date().getTime()));
+			CP.taskLog.html(__('Suspended') +': ' +(new Date().getTime()));
 		},
 		run: function(){
 			// CP.log('CP.tasker.run():', arguments);		
-			CP.taskLog.html('Running: ' +(new Date().getTime()));
+			CP.taskLog.html(__('Running') +': ' +(new Date().getTime()));
 			if(CP.tasker.isLooping()){
 				CP.tasker.thread = setInterval(CP.tasker.start, CP.tasker.INTERVAL);
 			}
@@ -580,6 +581,10 @@ var A = 65,
    _4 = 52,
 	Z = 90;
 
+// i18n
+function __(){
+	return arguments[0];
+}
 // inits
 jQuery(document).ready(function(){
 	CP.init();
