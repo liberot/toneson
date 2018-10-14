@@ -2,6 +2,8 @@
 
 var CP = {
 
+	version: 'forstopper.0.0',
+
 	detune: 31,
 
 	audioContext: null,
