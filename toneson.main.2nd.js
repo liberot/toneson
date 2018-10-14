@@ -46,7 +46,10 @@ var CP = {
 		'G major',
 		'A major',
 		'B major',
-		'Industrial Disease'
+		'Industrial Disease',
+		'A minor',
+		'B minor',
+		'C minor'
 	],
 	
 	tones: [
@@ -147,14 +150,124 @@ var CP = {
 			chords: [
 				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' 		},
 				{ idx: 'D major', 		tones: [4, 6, 9], 	label: 'D major DF#A' 		},
-				{ idx: 'E major', 		tones: [4, 7, 9], 	label: 'E minor EGB' 		},
+				{ idx: 'E major', 		tones: [4, 8, 11], 	label: 'E major EG#B' 		},  
 				{ idx: 'G major', 		tones: [7, 11, 2], 	label: 'G major GBD' 		}, 
 				{ idx: 'D major', 		tones: [4, 6, 9], 	label: 'D major DF#A' 		},
 				{ idx: 'C major', 		tones: [12, 4, 7], 	label: 'C major CEG' 		},  
 				{ idx: 'B minor', 		tones: [11, 2, 6], 	label: 'B minor BDF#' 		}, 
 				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major AC#E' 		},
 			]
-		}
+		},
+		{ idx: 'A minor', 
+			chords: [
+				{ idx: 'A minor', 		tones: [9, 0, 4], 	label: 'A minor ACE' 		},
+				{ idx: 'B diminished', 	tones: [11, 2, 5], 	label: 'B diminished BDF' 	},
+				{ idx: 'C major', 		tones: [0, 4, 7], 	label: 'C major CEG' 		},
+				{ idx: 'D minor', 		tones: [2, 5, 9], 	label: 'D minor DFA' 		}, 
+				{ idx: 'E minor', 		tones: [4, 7, 9], 	label: 'E minor EGB' 		},
+				{ idx: 'F major', 		tones: [5, 9, 0], 	label: 'F major FAC' 		},  
+				{ idx: 'G major', 		tones: [7, 9, 2], 	label: 'G major GBD' 		}
+			]
+		},
+		{ idx: 'B minor', 
+			chords: [
+				{ idx: 'B minor', 		tones: [11, 2, 7], 	label: 'B minor BDGb' 		},
+				{ idx: 'C diminished', 	tones: [1, 4, 7], 	label: 'C diminished DbEG' 	},
+				{ idx: 'D major', 		tones: [2, 6, 9], 	label: 'D major DGbA' 		},
+				{ idx: 'E minor', 		tones: [4, 7, 9], 	label: 'E minor EGB' 		},
+				{ idx: 'Gb minor', 		tones: [6, 9, 1], 	label: 'Gb minor GbADb' 		},
+				{ idx: 'G major', 		tones: [7, 11, 2], 	label: 'G major GBD' 		},  
+				{ idx: 'A major', 		tones: [9, 1, 4], 	label: 'A major ADbE' 		}
+			]
+		},
+		{ idx: 'C minor', 
+			chords: [
+				{ idx: 'C minor', 		tones: [0, 3, 7], 	label: 'C minor CEbG' 		},
+				{ idx: 'C diminished', 	tones: [1, 4, 7], 	label: 'C diminished DbEG' 	},
+				{ idx: 'Eb major', 		tones: [3, 7, 10], 	label: 'Eb major EbGBb' 	},
+				{ idx: 'F minor', 		tones: [5, 8, 0], 	label: 'F minor FAbC' 		},
+				{ idx: 'G minor', 		tones: [7, 10, 2], 	label: 'G minor GBbD' 		},
+				{ idx: 'Ab major', 		tones: [8, 0, 3], 	label: 'Ab major AbCEb' 	},  
+				{ idx: 'Bb major', 		tones: [10, 2, 5], 	label: 'Bb major BbDF' 		}
+			]
+		},
+
+		/*
+		0{ idx: 'C',  freq: 523.25 *1, label: 'C', 		pos: 0, fill: 0, view: null, vid: 'c1'  },
+		1{ idx: 'C#', freq: 554.37 *1, label: 'C#/Db', 	pos: 1, fill: 0, view: null, vid: 'c1+' },
+		2{ idx: 'D',  freq: 587.33 *1, label: 'D', 		pos: 0, fill: 0, view: null, vid: 'd1'  },
+		3{ idx: 'D#', freq: 622.25 *1, label: 'D#/Eb', 	pos: 1, fill: 0, view: null, vid: 'd1+' },
+		4{ idx: 'E',  freq: 659.25 *1, label: 'E', 		pos: 0, fill: 1, view: null, vid: 'e1'  },
+		5{ idx: 'F',  freq: 698.46 *1, label: 'F', 		pos: 0, fill: 0, view: null, vid: 'f1'  },
+		6{ idx: 'F#', freq: 739.99 *1, label: 'F#/Gb', 	pos: 1, fill: 0, view: null, vid: 'f1+' },
+		7{ idx: 'G',  freq: 783.99 *1, label: 'G', 		pos: 0, fill: 0, view: null, vid: 'g1'  },
+		8{ idx: 'G#', freq: 830.61 *1, label: 'G#/Ab', 	pos: 1, fill: 0, view: null, vid: 'g1+' },
+		9{ idx: 'A',  freq: 440.00 *2, label: 'A', 		pos: 0, fill: 0, view: null, vid: 'a1'  },
+		0{ idx: 'A#', freq: 466.16 *2, label: 'A#/Bb',	pos: 1, fill: 0, view: null, vid: 'a1+' },
+		1{ idx: 'B',  freq: 493.88 *2, label: 'B', 		pos: 0, fill: 0, view: null, vid: 'b1'  },
+		2{ idx: 'C',  freq: 523.25 *2, label: 'C', 		pos: 0, fill: 0, view: null, vid: 'c2'  }
+		*/
+
+		/*
+		keyMap[Y] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
+		keyMap[X] = { name: 'E diminished', notes: ['E', 'G', 'Bb'], type: 'chord'};
+		keyMap[C] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
+		keyMap[V] = { name: 'G minor', notes: ['G', 'Bb', 'D'], type: 'chord'};
+		keyMap[B] = { name: 'A minor', notes: ['G', 'C', 'E'], type: 'chord'};
+		keyMap[N] = { name: 'Bb major', notes: ['Bb', 'D', 'F'], type: 'chord'};
+		keyMap[M] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+		*/
+
+		/*
+		keyMap[Y] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+		keyMap[X] = { name: 'F diminished', notes: ['F#', 'A', 'C'], type: 'chord'};
+		keyMap[C] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+		keyMap[V] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
+		keyMap[B] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+		keyMap[N] = { name: 'D major', notes: ['D', 'F#', 'A'], type: 'chord'};
+		keyMap[M] = {};
+		*/
+
+		/*
+		keyMap[Y] = { name: 'F minor', notes: ['F', 'Ab', 'C'], type: 'chord'};
+		keyMap[X] = { name: 'G diminished', notes: ['G', 'Bb', 'Db'], type: 'chord'};
+		keyMap[C] = { name: 'Ab major', notes: ['Ab', 'C', 'Eb'], type: 'chord'};
+		keyMap[V] = { name: 'Bb minor', notes: ['Bb', 'Db', 'F'], type: 'chord'};
+		keyMap[B] = { name: 'C minor', notes: ['C', 'Eb', 'G'], type: 'chord'};
+		keyMap[N] = { name: 'Db major', notes: ['Db', 'F', 'Ab'], type: 'chord'};
+		keyMap[M] = { name: 'Eb major', notes: ['Eb', 'G', 'Bb'], type: 'chord'};
+		*/						
+						
+		/*
+		keyMap[Y] = { name: 'G minor', notes: ['G', 'Bb', 'D'], type: 'chord'};
+		keyMap[X] = { name: 'A diminished', notes: ['A', 'C', 'Eb'], type: 'chord'};
+		keyMap[C] = { name: 'Bb major', notes: ['Bb', 'D', 'F'], type: 'chord'};
+		keyMap[V] = { name: 'C minor', notes: ['C', 'Eb', 'A'], type: 'chord'};
+		keyMap[B] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
+		keyMap[N] = { name: 'Eb major', notes: ['Eb', 'G', 'Bb'], type: 'chord'};
+		keyMap[M] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
+		*/
+
+		/*
+		keyMap[Y] = { name: 'A minor', notes: ['A', 'C', 'E'], type: 'chord'};
+		keyMap[X] = { name: 'B diminished', notes: ['B', 'D', 'F'], type: 'chord'};
+		keyMap[C] = { name: 'C major', notes: ['C', 'E', 'G'], type: 'chord'};
+		keyMap[V] = { name: 'D minor', notes: ['D', 'F', 'A'], type: 'chord'};
+		keyMap[B] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+		keyMap[N] = { name: 'F major', notes: ['F', 'A', 'C'], type: 'chord'};
+		keyMap[M] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+		*/
+
+		/*
+		keyMap[Y] = { name: 'B minor', notes: ['B', 'D', 'F#'], type: 'chord'};
+		keyMap[X] = { name: 'C diminished', notes: ['C#', 'E', 'G'], type: 'chord'};
+		keyMap[C] = { name: 'D major', notes: ['D', 'F#', 'A'], type: 'chord'};
+		keyMap[V] = { name: 'E minor', notes: ['E', 'G', 'B'], type: 'chord'};
+		keyMap[B] = { name: 'F#/Gb minor', notes: ['F#', 'A', 'C#'], type: 'chord'};
+		keyMap[N] = { name: 'G major', notes: ['G', 'B', 'D'], type: 'chord'};
+		keyMap[M] = { name: 'A major', notes: ['A', 'C#', 'E'], type: 'chord'};
+		*/
+
 	],
 
 	initWorkspace: function(){
