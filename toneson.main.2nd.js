@@ -51,7 +51,8 @@ var CP = {
 		'Industrial Disease',
 		'A minor',
 		'B minor',
-		'C minor'
+		'C minor',
+		'Tu Vuo Fa Lamericano'
 	],
 	
 	tones: [
@@ -191,6 +192,14 @@ var CP = {
 				{ idx: 'G minor', 		tones: [7, 10, 2], 	label: 'G minor GBbD' 		},
 				{ idx: 'Ab major', 		tones: [8, 0, 3], 	label: 'Ab major AbCEb' 	},  
 				{ idx: 'Bb major', 		tones: [10, 2, 5], 	label: 'Bb major BbDF' 		}
+			]
+		},
+		{ idx: 'Tu Vuo Fa Lamericano', 
+			chords: [
+				{ idx: 'D minor', 		tones: [2, 5, 9], 	  label: 'D minor DFA' 		}, 
+				{ idx: 'E major 7', 	tones: [4, 8, 11, 2], label: 'E major 7 EG#BD'  },   
+				{ idx: 'A minor', 		tones: [9, 0, 4], 	  label: 'A minor ACE' 		},
+				{ idx: 'B major', 		tones: [8, 11, 2], 	  label: 'B major GBD' 		}
 			]
 		},
 
@@ -373,7 +382,8 @@ var CP = {
 			}
 
 			CP.singleToneOscs[idx].frequency.setValueAtTime(
-				tone.freq *CP.multipl, 
+				// tone.freq *parseInt(CP.multipl), 
+				tone.freq,
 				CP.audioNode.currentTime
 			);
 
@@ -544,10 +554,10 @@ var CP = {
 		toggle: function(){
 			switch(CP.tasker.state){
 				case CP.tasker.STATE_SUSPENDED:
-					CP.tasker.start();
+					 CP.tasker.start();
 					break;
 				case CP.tasker.STATE_RUNNING: 
-					CP.tasker.suspend();
+					 CP.tasker.suspend();
 					break;
 			}
 		},
@@ -630,6 +640,9 @@ var CP = {
 				CP.tones[idx].view = buf;
 			}
 		};
+
+		// moves dark keys
+		CP.blacks.css('left', '-243px');	
 	},
 
 	initViews: function(){
