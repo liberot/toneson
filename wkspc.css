@@ -21,7 +21,7 @@
 	font-style: italic;
 	background-color: #666666;
 	color: #ffffff;
-	padding: 1em;
+	padding: 1em;	
 }
 
 #chordLog {
@@ -47,6 +47,8 @@
 	font-family: Georgia;
 	font-style: italic;
 	padding: 1em;
+
+	visibility: hidden; display: none;
 }
 
 #idx {

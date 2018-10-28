@@ -285,7 +285,7 @@ var CP = {
 		CP.log('CP.initWorkspace():', arguments);
 		// ----	
 		CP.drawBoard();
-		CP.keyLog.html(__('Multiply') +': ' +CP.multipl);
+		// CP.keyLog.html(__('Multiply') +': ' +CP.multipl);
 	},
 
 	drawBoardTouch: function(){
@@ -430,7 +430,8 @@ var CP = {
 			CP.multipl++;
 		}
 		
-		CP.keyLog.html(__('Multiply') +': ' +CP.multipl);
+		// dont
+		// CP.keyLog.html(__('Multiply') +': ' +CP.multipl);
 	},
 
 	lowerMultipl: function(){
